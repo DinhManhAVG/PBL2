@@ -13,9 +13,11 @@ void AppBanking::chuyenKhoan(HashTableUser hashtb)
     system("cls");
     SetColor(7);
 }
-void AppBanking::traNoKhoanVay()
+void AppBanking::kiemTraThongTin(HashTableUser hashtb, HashTableBank htbank)
 {
-
+    hashtb.timKiemNguoiDung(the.getSoTaiKhoan(), htbank);
+    char c = _getch();
+    system("cls");
 }
 void AppBanking::hienThiTopKhachHang(HashTableUser hashtb, HashTableBank htbank)
 {
@@ -192,7 +194,7 @@ void AppBanking::paintApp()
         gotoXY(25, 11);
         wcout << L"║";
         SetConsoleTextAttribute(hConsoleColor, 206);
-        wcout << L"     Trả nợ khoản vay    ";
+        wcout << L"     Thông tin cá nhân   ";
         SetConsoleTextAttribute(hConsoleColor, 192);
         wcout << L"║";
         gotoXY(25, 12);
@@ -206,7 +208,7 @@ void AppBanking::paintApp()
         gotoXY(25, 11);
         wcout << L"║";
         SetConsoleTextAttribute(hConsoleColor, 228);
-        wcout << L"     Trả nợ khoản vay    ";
+        wcout << L"     Thông tin cá nhân   ";
         SetConsoleTextAttribute(hConsoleColor, 224);
         wcout << L"║";
         gotoXY(25, 12);
@@ -412,9 +414,8 @@ void AppBanking::displayApp(HashTableUser& hashtb, HashTableBank hashtbank, Hash
                             }
                             else if ((x >= 25 && x <= 51) && (y >= 10 && y <= 12))
                             {
-                                system("cls");
-                                wcout << L"Trả nợ khoản vay";
-                                _getch();
+                                
+                                kiemTraThongTin(hashtb, hashtbank);
                                 system("cls");
                             }
                             else if ((x >= 25 && x <= 51) && (y >= 15 && y <= 17))

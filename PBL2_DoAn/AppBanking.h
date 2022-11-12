@@ -16,7 +16,7 @@ public:
 
 	}
 	void chuyenKhoan(HashTableUser hashtb);
-	void traNoKhoanVay();
+	void kiemTraThongTin(HashTableUser, HashTableBank);
 	void hienThiTopKhachHang(HashTableUser hashtb, HashTableBank hashtbank);
 	void doiMatKhau(HashTableUser& hashtb);
 	void doiMatKhauAd(HashTableAdmin& hashtad);

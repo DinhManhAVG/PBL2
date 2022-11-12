@@ -98,6 +98,18 @@ public:
 		}
 		return false;
 	}
+	bool checkLoginATM(wstring acc, wstring maPin)
+	{
+		int hashValueIndex = hashFunction(acc);
+		for (Node<The>* k = buckets[hashValueIndex].head; k != NULL; k = k->next)
+		{
+			if (k->data.getSoTaiKhoan() == acc && k->data.getMaPin() == maPin)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 	void timKiemNguoiNhan(wstring soTaiKhoanNguoiChuyen, wstring soTaiKhoanNguoiNhan, int soTien)
 	{
 		int hashValueIndex = hashFunction(soTaiKhoanNguoiChuyen);
@@ -212,11 +224,9 @@ public:
 			}
 		}
 	}
-	void timKiemNguoiDung(wstring soTaiKhoan)
+	void timKiemNguoiDung(wstring soTaiKhoan, HashTableBank htbank)
 	{
 		Bank bank;
-		HashTableBank htbank;
-		htbank.docFile();
 		int hashValueIndex = hashFunction(soTaiKhoan);
 		for (Node<The>* k = buckets[hashValueIndex].head; k != NULL; k = k->next)
 		{
@@ -224,21 +234,21 @@ public:
 			{
 				bank = htbank.get(k->data.getMaBank())->getNode();
 				SetColor(11);
-				gotoXY(40, 20);
+				gotoXY(59, 26);
 				wcout << L"Số tài khoản: " << k->data.getSoTaiKhoan() << endl;
-				gotoXY(40, 22);
+				gotoXY(59, 28);
 				wcout << L"Mã Pin: " << k->data.getMaPin() << endl;
-				gotoXY(40, 24);
+				gotoXY(59, 30);
 				wcout << L"Tên người dùng: " << k->data.getHoVaTen() << endl;
-				gotoXY(40, 26);
+				gotoXY(59, 32);
 				wcout << L"Giới tính: " << k->data.getGioiTinh() << endl;
-				gotoXY(40, 28);
+				gotoXY(59, 34);
 				wcout << L"Ngày sinh: " << k->data.getNgaySinh() << endl;
-				gotoXY(40, 30);
+				gotoXY(59, 36);
 				wcout << L"Địa chỉ: " << k->data.getDiaChi() << endl;
-				gotoXY(40, 32);
+				gotoXY(59, 38);
 				wcout << L"Số dư hiện tại: " << k->data.getSoDu() << endl;
-				gotoXY(40, 34);
+				gotoXY(59, 40);
 				wcout << L"Tên ngân hàng: " << bank.getTenBank() << endl;
 				break;
 			}
@@ -314,41 +324,38 @@ public:
 			if (k->data.getSoTaiKhoan() == soTaiKhoan)
 			{
 				SetColor(11);
-				gotoXY(40, 20);
+				gotoXY(59, 26);
 				wcout << L"Tên người dùng: " << k->data.getHoVaTen() << endl;
-				gotoXY(40, 22);
+				gotoXY(59, 28);
 				wcout << L"Số tài khoản: " << k->data.getSoTaiKhoan() << endl;
-				gotoXY(40, 24);
+				gotoXY(59, 30);
 				wcout << L"Số dư hiện tại: " << k->data.getSoDu() << endl; break;
 			}
 		}
 	}
-	void ktraSoDuTietKiem(wstring soTaiKhoan)
+	void ktraSoDuTietKiem(wstring soTaiKhoan, HashTableBank htbank)
 	{
 		Bank bank;
 		SetColor(11);
-		gotoXY(40, 22);
-		int soThang;
-		wcout << L"Nhập số tháng muốn gửi vào ngân hàng: "; wcin >> soThang;
+		gotoXY(59, 26);
+		int soNam;
+		wcout << L"Nhập số năm muốn gửi vào ngân hàng: "; wcin >> soNam;
 		int hashValueIndex = hashFunction(soTaiKhoan);
 		for (Node<The>* k = buckets[hashValueIndex].head; k != NULL; k = k->next)
 		{
 			if (k->data.getSoTaiKhoan() == soTaiKhoan)
 			{
-				HashTableBank htbank;
-				htbank.docFile();
 				bank = htbank.get(k->data.getMaBank())->getNode();
 				SetColor(11);
-				gotoXY(40, 24);
+				gotoXY(59, 28);
 				wcout << L"Tên người dùng: " << k->data.getHoVaTen() << endl;
-				gotoXY(40, 26);
+				gotoXY(59, 30);
 				wcout << L"Số tài khoản: " << k->data.getSoTaiKhoan() << endl;
-				gotoXY(40, 28);
-				k->data.setSoDuTietKiem(bank.tinhTongSoTienTietKiem(k->data.getSoDuTietKiem(), soThang, bank.getLaiSuat()));
+				gotoXY(59, 32);
+				k->data.setSoDuTietKiem(bank.tinhTongSoTienTietKiem(k->data.getSoDuTietKiem(), soNam, bank.getLaiSuat()));
 				wcout << L"Số dư tiết kiệm hiện tại: " << k->data.getSoDuTietKiem() << endl; break;
 			}
 		}
-		ghiFile();
 	}
 	void doiMaPin(wstring soTaiKhoan, wstring maPinMoi)
 	{
@@ -358,7 +365,7 @@ public:
 		{
 			if (k->data.getSoTaiKhoan() == soTaiKhoan)
 			{
-				k->data.getMaPin() = maPinMoi;
+				k->data.setMaPin(maPinMoi);
 			}
 		}
 	}

@@ -101,8 +101,8 @@ int main()
                             else if ((x >= 40 && x <= 61) && (y >= 9 && y <= 11))
                             {
                                 system("cls");
-                                atm.hienThi();
-                                atm.luaChonChucNang(hs);
+                                atm.hienThi(hs);
+                                atm.luaChonChucNang(hs, hsb);
                             }
                             else if ((x >= 40 && x <= 61) && (y >= 14 && y <= 16))
                             {

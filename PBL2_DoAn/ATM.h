@@ -8,24 +8,15 @@ private:
     static long long soTienHienCo;
 
 public:
-    void kiemTraThongTin(HashTableUser, wstring);// dựa vào số tài khoản để in ra 
-    /*void setHoVaTen(wstring);
-    string getHoVaTen();
-    void setgioiTinh(wstring);
-    string getGioiTinh();
-    void setngaySinh(wstring);
-    string getNgaySinh();*/
-
-    void rutTien(HashTableUser, wstring);
-    void rutTienTietKiem(HashTableUser ht, wstring getSoTaiKhoan);
-    void chuyenTien(HashTableUser, wstring);
-    void chuyenTienTietKiem(HashTableUser, wstring);
-
+    void kiemTraThongTin(HashTableUser, HashTableBank, wstring);// dựa vào số tài khoản để in ra 
+    void rutTien(HashTableUser&, wstring);
+    void rutTienTietKiem(HashTableUser& ht, wstring getSoTaiKhoan);
+    void chuyenTien(HashTableUser&, wstring);
+    void chuyenTienTietKiem(HashTableUser&, wstring);
     void kiemTraSoDu(HashTableUser, wstring);
-    void kiemTraSoDuTietKiem(HashTableUser ht, wstring soTaiKhoan);
+    void kiemTraSoDuTietKiem(HashTableUser ht, HashTableBank htbank, wstring soTaiKhoan);
     void hienThiGiaoDien();
-    void doiMaPin(HashTableUser, wstring);
-    void luaChonChucNang(HashTableUser ht);
-    bool kiemTraTaiKhoan(wstring soTaiKhoan, wstring maPin);
-    void hienThi();
+    void doiMaPin(HashTableUser&, wstring);
+    void luaChonChucNang(HashTableUser& ht, HashTableBank htbank);
+    void hienThi(HashTableUser hashtb);
 };
