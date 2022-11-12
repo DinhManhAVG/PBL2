@@ -14,7 +14,7 @@ int main()
     had.docFile();
     hsb.docFile();
     ShowCur(false);
-    // Vòng lặp để quét qua các event 
+    // Vòng lặp để quét qua các event  
     while (true)
     {
         paint();
