@@ -8,7 +8,7 @@ public:
 	{
 
 	}
-	void add(wstring key, Node<The>* p)
+	bool add(wstring key, Node<The>* p)
 	{
 		int hashValueIndex = hashFunction(key);
 		bool check = true;
@@ -18,6 +18,8 @@ public:
 			if (k->data.getSoTaiKhoan() == key)
 			{
 				check = false;
+				gotoXY(30, 15);
+				wcout << L"Số tài khoản đã tồn tại! ";
 				break;
 			}
 			k = k->next;
@@ -25,6 +27,7 @@ public:
 		}
 		if (check)
 			buckets[hashValueIndex].Insert_Back(p);
+		return check;
 	}
 	void remove(wstring key)
 	{

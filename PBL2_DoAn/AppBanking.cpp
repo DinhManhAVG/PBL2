@@ -920,7 +920,7 @@ void AppBanking::paintTongQuat()
         gotoXY(60, 6);
         wcout << L"║";
         SetConsoleTextAttribute(hConsoleColor, 206);
-        wcout << L" Thoát chương trình ";
+        wcout << L"       Thoát        ";
         SetConsoleTextAttribute(hConsoleColor, 192);
         wcout << L"║";
         gotoXY(60, 7);
@@ -935,7 +935,7 @@ void AppBanking::paintTongQuat()
         gotoXY(60, 6);
         wcout << L"║";
         SetConsoleTextAttribute(hConsoleColor, 228);
-        wcout << L" Thoát chương trình ";
+        wcout << L"       Thoát        ";
         SetConsoleTextAttribute(hConsoleColor, 224);
         wcout << L"║";
         gotoXY(60, 7);
@@ -943,7 +943,7 @@ void AppBanking::paintTongQuat()
         SetConsoleTextAttribute(hConsoleColor, 7);
     }
 }
-void AppBanking::displayTongQuat(HashTableUser hashtb, int& access, HashTableAdmin hashtad)
+void AppBanking::displayTongQuat(HashTableUser& hashtb, int& access, HashTableBank& hashtbank, HashTableAdmin hashtad)
 {
     ShowCur(false);
     int check = 1;
@@ -1047,7 +1047,7 @@ void AppBanking::displayTongQuat(HashTableUser hashtb, int& access, HashTableAdm
                             else if ((x >= 60 && x <= 81) && (y >= 9 && y <= 11))
                             {
                                 system("cls");
-                                displayTaoTaiKhoan(hashtb);
+                                displayTaoTaiKhoan(hashtb, hashtbank);
                             }
                             else if ((x >= 60 && x <= 81) && (y >= 5 && y <= 7))
                             {
@@ -1214,7 +1214,7 @@ void AppBanking::displayDangNhap(wstring nameFile, bool& checkCount, HashTableAd
         system("cls");
     }
 }
-void AppBanking::displayTaoTaiKhoan(HashTableUser hashtb)
+void AppBanking::displayTaoTaiKhoan(HashTableUser& hashtb, HashTableBank& hashtbank)
 {
     wstring stk;
     bool check1 = true, check2 = false;
@@ -1224,7 +1224,6 @@ void AppBanking::displayTaoTaiKhoan(HashTableUser hashtb)
         paintKhung();
         gotoXY(30, 7);
         wcout << L"Nhập số tài khoản: ";
-        wcin.ignore();
         getline(wcin, stk);
         for (int i = 0; i < stk.length(); i++)
         {
@@ -1247,48 +1246,63 @@ void AppBanking::displayTaoTaiKhoan(HashTableUser hashtb)
     gotoXY(30, 8);
     wcout << L"Nhập mật khẩu: ";
     wstring mk;
-    wcin >> mk;
+    getline(wcin, mk);
     gotoXY(30, 9);
     wcout << L"Nhập mã pin: ";
     wstring mp;
-    wcin >> mp;
+    getline(wcin, mp);
     gotoXY(30, 10);
     wcout << L"Nhập họ và tên: ";
     wstring hvt;
-    wcin.ignore();
     getline(wcin, hvt);
     gotoXY(30, 11);
     wcout << L"Nhập giới tính: ";
     wstring gt;
-    wcin >> gt;
-    gotoXY(30, 12);
-    wcout << L"Nhập ngày sinh: ";
+    getline(wcin, gt);
     wstring ns;
-    wcin >> ns;
+    int day, month, year;
+    do
+    {
+        check1 = true, check2 = false;
+        paintKhung();
+        gotoXY(30, 12);
+        wcout << L"Nhập ngày tháng năm sinh: ";
+        wcin >> day >> month >> year;
+        if (!kiemTraNgayHopLe(day, month, year))
+        {
+            check1 = false;
+            gotoXY(30, 13);
+            wcout << L"Ngày sinh không hợp lệ!";
+            gotoXY(30, 14);
+            system("pause");
+            gotoXY(55, 12);
+            wcout << L"                              ";
+            gotoXY(30, 13);
+            wcout << L"                       ";
+            gotoXY(30, 14);
+            wcout << L"                               ";
+        }
+    } while (!check1);
+    wcin.ignore(256, '\n');
+    ns = ns + to_wstring(day) + L"/" + to_wstring(month) + L"/" + to_wstring(year);
     gotoXY(30, 13);
     wcout << L"Nhập địa chỉ: ";
     wstring dc;
-    wcin.ignore();
     getline(wcin, dc);
     long long sd = 0;
     long long sdtk = 0; // số dư tiết kiệm
-    double ls = 0;
     gotoXY(30, 14);
-    wcout << L"Nhập tên ngân hàng: "; 
+    wcout << L"Nhập mã ngân hàng: "; 
     wstring mb;
-    wcin.ignore();
     getline(wcin, mb);
-    HashTableBank hashtbank;
-    hashtbank.docFile();
-    hashtbank.updateSoLuongUser(mb);
-    hashtbank.ghiFile();
     The the(stk, mk, mp, hvt, gt, ns, dc, sd, sdtk, mb);
     Node<The>* k = new Node<The>(the);
-    hashtb.docFile();
-    hashtb.add(k->data.getSoTaiKhoan(), k);
-    hashtb.ghiFile();
-    gotoXY(30, 16);
-    wcout << L"Tạo tài khoản thành công!";
+    if (hashtb.add(k->data.getSoTaiKhoan(), k))
+    {
+        hashtbank.updateSoLuongUser(mb);
+        gotoXY(30, 15);
+        wcout << L"Tạo tài khoản thành công!";
+    }
     wcin.ignore();
     system("cls");
 

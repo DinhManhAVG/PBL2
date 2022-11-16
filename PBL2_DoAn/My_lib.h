@@ -180,3 +180,68 @@ static void paint()
         SetConsoleTextAttribute(hConsoleColor, 7);
     }
 }
+static bool kiemTraNamNhuan(int year)
+{
+    if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)
+    {
+        return true;
+    }
+    return false;
+}
+static int tinhSoNgayTrongThang(int month, int year)
+{
+    int numOfDays;
+
+    switch (month)
+    {
+    case 1:
+    case 3:
+    case 5:
+    case 7:
+    case 8:
+    case 10:
+    case 12:
+        numOfDays = 31;
+        break;
+    case 4:
+    case 6:
+    case 9:
+    case 11:
+        numOfDays = 30;
+        break;
+    case 2:
+        if (kiemTraNamNhuan(year))
+        {
+            numOfDays = 29;
+        }
+        else
+        {
+            numOfDays = 28;
+        }
+        break;
+    }
+
+    return numOfDays;
+}
+static bool kiemTraNgayHopLe(int day, int month, int year)
+{
+    // Kiểm tra năm
+    if (year < 0)
+    {
+        return false; // Ngày không còn hợp lệ nữa!
+    }
+
+    // Kiểm tra tháng
+    if (month < 1 || month > 12)
+    {
+        return false; // Ngày không còn hợp lệ nữa!
+    }
+
+    // Kiểm tra ngày
+    if (day < 1 || day > tinhSoNgayTrongThang(month, year))
+    {
+        return false; // Ngày không còn hợp lệ nữa!
+    }
+
+    return true; // Trả về trạng thái cuối cùng...
+}

@@ -7,7 +7,7 @@ public:
 	{
 
 	}
-	void add(wstring key, Node<Bank>* p)
+	bool add(wstring key, Node<Bank>* p)
 	{
 		int hashValueIndex = hashFunction(key);
 		bool check = true;
@@ -24,6 +24,7 @@ public:
 		}
 		if (check)
 			buckets[hashValueIndex].Insert_Back(p);
+		return check;
 	}
 	void remove(wstring key)
 	{

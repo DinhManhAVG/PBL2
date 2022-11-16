@@ -1,12 +1,12 @@
-﻿#include "AppBanking.h"
-#include "ATM.h"
+﻿#include"Person.h"
 using namespace std;
 int main()
 {
     _setmode(_fileno(stdin), _O_U16TEXT);
     _setmode(_fileno(stdout), _O_U16TEXT);
-    AppBanking abk;
-    ATM atm;
+    /*AppBanking abk;
+    ATM atm;*/
+    Person p;
     HashTableUser hs;
     HashTableAdmin had;
     HashTableBank hsb;
@@ -88,12 +88,12 @@ int main()
                                 {
                                     system("cls");
                                     int access = 0;
-                                    abk.displayTongQuat(hs, access, had);
+                                    p.displayTongQuat(hs, access, hsb, had);
                                     system("cls");
                                     if (access == 1)
-                                        abk.displayAdmin(had, hs, hsb);
+                                        p.displayAdmin(had, hs, hsb);
                                     else if (access == 2)
-                                        abk.displayApp(hs, hsb, had);
+                                        p.displayApp(hs, hsb, had);
                                     else
                                         break;
                                 }
@@ -101,8 +101,8 @@ int main()
                             else if ((x >= 40 && x <= 61) && (y >= 9 && y <= 11))
                             {
                                 system("cls");
-                                atm.hienThi(hs);
-                                atm.luaChonChucNang(hs, hsb);
+                                p.hienThi(hs);
+                                p.luaChonChucNang(hs, hsb);
                             }
                             else if ((x >= 40 && x <= 61) && (y >= 14 && y <= 16))
                             {

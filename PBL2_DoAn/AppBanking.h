@@ -3,7 +3,7 @@
 #include"HashTableAdmin.h"
 class AppBanking
 {
-private:
+protected:
 	The the;
 	Admin ad;
 public:
@@ -27,7 +27,7 @@ public:
 	void paintAdmin();
 	void displayAdmin(HashTableAdmin& hashtad, HashTableUser& hashtuser, HashTableBank& hashtbank);
 	void paintTongQuat();
-	void displayTongQuat(HashTableUser hashtb, int& access, HashTableAdmin hashtad);
+	void displayTongQuat(HashTableUser& hashtb, int& access, HashTableBank& hashtbank, HashTableAdmin hashtad);
 	void displayDangNhap(wstring nameFile, bool& checkCount, HashTableAdmin hashtad, HashTableUser hashtuser);
-	void displayTaoTaiKhoan(HashTableUser hashtb);
+	void displayTaoTaiKhoan(HashTableUser& hashtb, HashTableBank& hashtbank);
 };

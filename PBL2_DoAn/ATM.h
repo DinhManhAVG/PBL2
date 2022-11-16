@@ -3,7 +3,7 @@
 using namespace std;
 class ATM
 {
-private:
+protected:
     The the;
     static long long soTienHienCo;
 

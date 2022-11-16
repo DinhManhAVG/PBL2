@@ -17,7 +17,7 @@ protected:
 		return index;
 	}
 public:
-	virtual void add(wstring key, Node<T>* p) = 0;
+	virtual bool add(wstring key, Node<T>* p) = 0;
 	virtual void remove(wstring key) = 0;
 	virtual Node<T>* get(wstring key) = 0;
 	virtual void xuatHashTable() = 0;
