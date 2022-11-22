@@ -1,5 +1,5 @@
 ﻿ #include "AppBanking.h"
-void AppBanking::chuyenKhoan(HashTableUser hashtb)
+void AppBanking::chuyenKhoan(HashTableThe hashtb)
 {
     SetColor(11);
     gotoXY(30, 14);
@@ -13,20 +13,20 @@ void AppBanking::chuyenKhoan(HashTableUser hashtb)
     system("cls");
     SetColor(7);
 }
-void AppBanking::kiemTraThongTin(HashTableUser hashtb, HashTableBank htbank)
+void AppBanking::kiemTraThongTin(HashTableThe hashtb, HashTableBank htbank)
 {
     hashtb.timKiemNguoiDung(the.getSoTaiKhoan(), htbank);
     char c = _getch();
     system("cls");
 }
-void AppBanking::hienThiTopKhachHang(HashTableUser hashtb, HashTableBank htbank)
+void AppBanking::hienThiTopKhachHang(HashTableThe hashtb, HashTableBank htbank)
 {
     system("cls");
     hashtb.sapXepTheoSoTaiKhoan(htbank);
     system("pause");
     system("cls");
 }
-void AppBanking::doiMatKhau(HashTableUser& hashtb)
+void AppBanking::doiMatKhau(HashTableThe& hashtb)
 {
     system("cls");
     paintKhung();
@@ -329,7 +329,7 @@ void AppBanking::paintApp()
         SetConsoleTextAttribute(hConsoleColor, 7);
     }
 }
-void AppBanking::displayApp(HashTableUser& hashtb, HashTableBank hashtbank, HashTableAdmin hashtad)
+void AppBanking::displayApp(HashTableThe& hashtb, HashTableBank hashtbank, HashTableAdmin hashtad)
 {
     int check = 1;
     HANDLE hConsoleColor;
@@ -651,7 +651,7 @@ void AppBanking::paintAdmin()
         SetConsoleTextAttribute(hConsoleColor, 7);
     }
 }
-void AppBanking::displayAdmin(HashTableAdmin& hashtad, HashTableUser& hashtuser, HashTableBank& hashtbank)
+void AppBanking::displayAdmin(HashTableAdmin& hashtad, HashTableThe& hashtuser, HashTableBank& hashtbank)
 {
     int check = 1;
     HANDLE hConsoleColor;
@@ -943,7 +943,7 @@ void AppBanking::paintTongQuat()
         SetConsoleTextAttribute(hConsoleColor, 7);
     }
 }
-void AppBanking::displayTongQuat(HashTableUser& hashtb, int& access, HashTableBank& hashtbank, HashTableAdmin hashtad)
+void AppBanking::displayTongQuat(HashTableThe& hashtb, int& access, HashTableBank& hashtbank, HashTableAdmin hashtad)
 {
     ShowCur(false);
     int check = 1;
@@ -1037,7 +1037,7 @@ void AppBanking::displayTongQuat(HashTableUser& hashtb, int& access, HashTableBa
                             {
                                 system("cls");
                                 bool checkCount = true;
-                                displayDangNhap(L"User.txt", checkCount, hashtad, hashtb);
+                                displayDangNhap(L"The.txt", checkCount, hashtad, hashtb);
                                 if (checkCount)
                                 {
                                     check = 0;
@@ -1088,7 +1088,7 @@ void AppBanking::displayTongQuat(HashTableUser& hashtb, int& access, HashTableBa
         }
     }
 }
-void AppBanking::displayDangNhap(wstring nameFile, bool& checkCount, HashTableAdmin hashtad, HashTableUser hashtuser)
+void AppBanking::displayDangNhap(wstring nameFile, bool& checkCount, HashTableAdmin hashtad, HashTableThe hashtuser)
 {
     ShowCur(false);
     HANDLE hConsoleColor;
@@ -1130,7 +1130,7 @@ void AppBanking::displayDangNhap(wstring nameFile, bool& checkCount, HashTableAd
         gotoXY(45, 9);
         wstring account;
         getline(wcin, account);
-        if (nameFile == L"User.txt")
+        if (nameFile == L"The.txt")
             this->the.setSoTaiKhoan(account);
         if (nameFile == L"Admin.txt")
             this->ad.setMaAdmin(account);
@@ -1187,7 +1187,7 @@ void AppBanking::displayDangNhap(wstring nameFile, bool& checkCount, HashTableAd
                 }
             }
         }
-        if (nameFile == L"User.txt")
+        if (nameFile == L"The.txt")
         {
             this->the.setMatKhau(password);
             if (hashtuser.checkAccount(this->the.getSoTaiKhoan(), this->the.getMatKhau()))
@@ -1214,7 +1214,7 @@ void AppBanking::displayDangNhap(wstring nameFile, bool& checkCount, HashTableAd
         system("cls");
     }
 }
-void AppBanking::displayTaoTaiKhoan(HashTableUser& hashtb, HashTableBank& hashtbank)
+void AppBanking::displayTaoTaiKhoan(HashTableThe& hashtb, HashTableBank& hashtbank)
 {
     wstring stk;
     bool check1 = true, check2 = false;

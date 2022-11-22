@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include"HashTableUser.h"
+#include"HashTableThe.h"
 using namespace std;
 class ATM
 {
@@ -8,15 +8,15 @@ protected:
     static long long soTienHienCo;
 
 public:
-    void kiemTraThongTin(HashTableUser, HashTableBank, wstring);// dựa vào số tài khoản để in ra 
-    void rutTien(HashTableUser&, wstring);
-    void rutTienTietKiem(HashTableUser& ht, wstring getSoTaiKhoan);
-    void chuyenTien(HashTableUser&, wstring);
-    void chuyenTienTietKiem(HashTableUser&, wstring);
-    void kiemTraSoDu(HashTableUser, wstring);
-    void kiemTraSoDuTietKiem(HashTableUser ht, HashTableBank htbank, wstring soTaiKhoan);
+    void kiemTraThongTin(HashTableThe, HashTableBank, wstring);// dựa vào số tài khoản để in ra 
+    void rutTien(HashTableThe&, wstring);
+    void rutTienTietKiem(HashTableThe& ht, wstring getSoTaiKhoan);
+    void chuyenTien(HashTableThe&, wstring);
+    void chuyenTienTietKiem(HashTableThe&, wstring);
+    void kiemTraSoDu(HashTableThe, wstring);
+    void kiemTraSoDuTietKiem(HashTableThe ht, HashTableBank htbank, wstring soTaiKhoan);
     void hienThiGiaoDien();
-    void doiMaPin(HashTableUser&, wstring);
-    void luaChonChucNang(HashTableUser& ht, HashTableBank htbank);
-    void hienThi(HashTableUser hashtb);
+    void doiMaPin(HashTableThe&, wstring);
+    void luaChonChucNang(HashTableThe& ht, HashTableBank htbank);
+    void hienThi(HashTableThe hashtb);
 };

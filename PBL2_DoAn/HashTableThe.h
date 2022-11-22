@@ -1,10 +1,10 @@
 ﻿#pragma once
 #include"HashTable.h"
 #include"HashTableBank.h"
-class HashTableUser : public HashTable<The>
+class HashTableThe : public HashTable<The>
 {
 public:
-	HashTableUser()
+	HashTableThe()
 	{
 
 	}
@@ -374,7 +374,7 @@ public:
 	}
 	void ghiFile()
 	{
-		wofstream output(L"User.txt");
+		wofstream output(L"The.txt");
 		locale utf8_locale(locale(), new codecvt_utf8<wchar_t>);
 		output.imbue(utf8_locale);
 		output << L'\xFEFF';
@@ -391,7 +391,7 @@ public:
 	void docFile()
 	{
 		wstring str[2000];
-		std::wifstream input(L"User.txt");
+		std::wifstream input(L"The.txt");
 		locale utf8_locale(locale(), new codecvt_utf8<wchar_t>);
 		input.imbue(utf8_locale);
 		wchar_t bom = L'\0';

@@ -68,7 +68,7 @@
     <ClInclude Include="HashTableBank.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="HashTableUser.h">
+    <ClInclude Include="HashTableThe.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Person.h">
@@ -76,7 +76,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="User.txt">
+    <Text Include="The.txt">
       <Filter>Source Files</Filter>
     </Text>
     <Text Include="Admin.txt">

@@ -30,7 +30,7 @@ private:
 	Node<T>* head;
 	Node<T>* tail;
 public:
-	friend class HashTableUser;
+	friend class HashTableThe;
 	friend class HashTableBank;
 	friend class HashTableAdmin;
 	List()

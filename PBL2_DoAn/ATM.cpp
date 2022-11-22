@@ -13,7 +13,7 @@ enum LUACHON { CHUCNANG1 = 1, CHUCNANG2 = 2, CHUCNANG3 = 3, CHUCNANG4 = 4, CHUCN
 // ENTER 13
 
 
-void ATM::kiemTraThongTin(HashTableUser ht, HashTableBank htbank, wstring getSoTaiKhoan)
+void ATM::kiemTraThongTin(HashTableThe ht, HashTableBank htbank, wstring getSoTaiKhoan)
 {
     ht.timKiemNguoiDung(getSoTaiKhoan, htbank);
     char c = _getch();
@@ -56,7 +56,7 @@ void ATM::hienThiGiaoDien()
     gotoXY(33, 10); wcout << "      **      **       ***        ***     ***" << endl;
     SetColor(7);
 }
-void ATM::rutTien(HashTableUser& ht, wstring getSoTaiKhoan)
+void ATM::rutTien(HashTableThe& ht, wstring getSoTaiKhoan)
 {
     hienThiGiaoDien();
     SetColor(11);
@@ -79,7 +79,7 @@ void ATM::rutTien(HashTableUser& ht, wstring getSoTaiKhoan)
     hienThiGiaoDien();
     SetColor(7);
 }
-void ATM::rutTienTietKiem(HashTableUser& ht, wstring getSoTaiKhoan)
+void ATM::rutTienTietKiem(HashTableThe& ht, wstring getSoTaiKhoan)
 {
     hienThiGiaoDien();
     SetColor(11);
@@ -112,7 +112,7 @@ void ATM::rutTienTietKiem(HashTableUser& ht, wstring getSoTaiKhoan)
     hienThiGiaoDien();
     SetColor(7);
 }
-void ATM::chuyenTien(HashTableUser& ht, wstring soTaiKhoanNguoiChuyen)
+void ATM::chuyenTien(HashTableThe& ht, wstring soTaiKhoanNguoiChuyen)
 {
     hienThiGiaoDien();
     SetColor(11);
@@ -137,7 +137,7 @@ void ATM::chuyenTien(HashTableUser& ht, wstring soTaiKhoanNguoiChuyen)
     hienThiGiaoDien();
     SetColor(7);
 }
-void ATM::chuyenTienTietKiem(HashTableUser& ht, wstring soTaiKhoanNguoiChuyen)
+void ATM::chuyenTienTietKiem(HashTableThe& ht, wstring soTaiKhoanNguoiChuyen)
 {
     hienThiGiaoDien();
     SetColor(11);
@@ -162,7 +162,7 @@ void ATM::chuyenTienTietKiem(HashTableUser& ht, wstring soTaiKhoanNguoiChuyen)
     SetColor(7);
 }
 
-void ATM::kiemTraSoDu(HashTableUser ht, wstring soTaiKhoan)
+void ATM::kiemTraSoDu(HashTableThe ht, wstring soTaiKhoan)
 {
     SetColor(11);
     gotoXY(30, 14);
@@ -171,7 +171,7 @@ void ATM::kiemTraSoDu(HashTableUser ht, wstring soTaiKhoan)
     system("cls");
     hienThiGiaoDien();
 }
-void ATM::kiemTraSoDuTietKiem(HashTableUser ht, HashTableBank htbank, wstring soTaiKhoan)
+void ATM::kiemTraSoDuTietKiem(HashTableThe ht, HashTableBank htbank, wstring soTaiKhoan)
 {
     SetColor(11);
     gotoXY(30, 14);
@@ -180,7 +180,7 @@ void ATM::kiemTraSoDuTietKiem(HashTableUser ht, HashTableBank htbank, wstring so
     system("cls");
     hienThiGiaoDien();
 }
-void ATM::doiMaPin(HashTableUser& ht, wstring getSoTaiKhoan)
+void ATM::doiMaPin(HashTableThe& ht, wstring getSoTaiKhoan)
 {
     hienThiGiaoDien();
     SetColor(11);
@@ -230,7 +230,7 @@ void ATM::doiMaPin(HashTableUser& ht, wstring getSoTaiKhoan)
     }
 
 }
-void ATM::luaChonChucNang(HashTableUser& ht, HashTableBank htbank)
+void ATM::luaChonChucNang(HashTableThe& ht, HashTableBank htbank)
 {
     int luaChon = 1, check = 1, in = 1;
     HANDLE hConsoleColor;
@@ -937,7 +937,7 @@ void ATM::luaChonChucNang(HashTableUser& ht, HashTableBank htbank)
         }
     }
 }
-void ATM::hienThi(HashTableUser hashtb)
+void ATM::hienThi(HashTableThe hashtb)
 {
     ShowCur(false);
     while (true)

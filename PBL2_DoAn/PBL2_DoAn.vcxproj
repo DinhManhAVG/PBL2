@@ -155,7 +155,7 @@
     <ClInclude Include="HashTable.h" />
     <ClInclude Include="HashTableAdmin.h" />
     <ClInclude Include="HashTableBank.h" />
-    <ClInclude Include="HashTableUser.h" />
+    <ClInclude Include="HashTableThe.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="My_lib.h" />
     <ClInclude Include="Person.h" />
@@ -164,7 +164,7 @@
   <ItemGroup>
     <Text Include="Admin.txt" />
     <Text Include="Bank.txt" />
-    <Text Include="User.txt" />
+    <Text Include="The.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

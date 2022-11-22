@@ -45,7 +45,7 @@ wstring Admin::getNgaySinh()
 
 void Admin::DanhSachThongTin()
 {
-	HashTableUser hashtbUser;
+	HashTableThe hashtbUser;
 	hashtbUser.docFile();
 	hashtbUser.xuatHashTable();
 	system("pause");

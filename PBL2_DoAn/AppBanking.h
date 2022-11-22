@@ -1,5 +1,5 @@
 #pragma once
-#include "HashTableUser.h"
+#include "HashTableThe.h"
 #include"HashTableAdmin.h"
 class AppBanking
 {
@@ -15,19 +15,19 @@ public:
 	{
 
 	}
-	void chuyenKhoan(HashTableUser hashtb);
-	void kiemTraThongTin(HashTableUser, HashTableBank);
-	void hienThiTopKhachHang(HashTableUser hashtb, HashTableBank hashtbank);
-	void doiMatKhau(HashTableUser& hashtb);
+	void chuyenKhoan(HashTableThe hashtb);
+	void kiemTraThongTin(HashTableThe, HashTableBank);
+	void hienThiTopKhachHang(HashTableThe hashtb, HashTableBank hashtbank);
+	void doiMatKhau(HashTableThe& hashtb);
 	void doiMatKhauAd(HashTableAdmin& hashtad);
 	bool checkAccount(wstring acc, wstring pass, wstring nameFile);
 	void paintKhung();
 	void paintApp();
-	void displayApp(HashTableUser& hashtb, HashTableBank hashtbank, HashTableAdmin hashtad);
+	void displayApp(HashTableThe& hashtb, HashTableBank hashtbank, HashTableAdmin hashtad);
 	void paintAdmin();
-	void displayAdmin(HashTableAdmin& hashtad, HashTableUser& hashtuser, HashTableBank& hashtbank);
+	void displayAdmin(HashTableAdmin& hashtad, HashTableThe& hashtuser, HashTableBank& hashtbank);
 	void paintTongQuat();
-	void displayTongQuat(HashTableUser& hashtb, int& access, HashTableBank& hashtbank, HashTableAdmin hashtad);
-	void displayDangNhap(wstring nameFile, bool& checkCount, HashTableAdmin hashtad, HashTableUser hashtuser);
-	void displayTaoTaiKhoan(HashTableUser& hashtb, HashTableBank& hashtbank);
+	void displayTongQuat(HashTableThe& hashtb, int& access, HashTableBank& hashtbank, HashTableAdmin hashtad);
+	void displayDangNhap(wstring nameFile, bool& checkCount, HashTableAdmin hashtad, HashTableThe hashtuser);
+	void displayTaoTaiKhoan(HashTableThe& hashtb, HashTableBank& hashtbank);
 };

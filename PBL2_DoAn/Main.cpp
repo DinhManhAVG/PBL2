@@ -7,7 +7,7 @@ int main()
     /*AppBanking abk;
     ATM atm;*/
     Person p;
-    HashTableUser hs;
+    HashTableThe hs;
     HashTableAdmin had;
     HashTableBank hsb;
     hs.docFile();
