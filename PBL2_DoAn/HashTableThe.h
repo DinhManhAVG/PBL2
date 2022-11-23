@@ -89,6 +89,18 @@ public:
 			}
 		}
 	}
+	bool checkSTK(wstring key)
+	{
+		int hashValueIndex = hashFunction(key);
+		for (Node<The>* k = buckets[hashValueIndex].head; k != NULL; k = k->next)
+		{
+			if (k->data.getSoTaiKhoan() == key)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 	bool checkAccount(wstring acc, wstring pass)
 	{
 		int hashValueIndex = hashFunction(acc);
@@ -473,7 +485,13 @@ public:
 			}
 			else if (str[i] != L"|" && temp == 4)
 			{
-				gt = str[i];
+				while (str[i] != L"|")
+				{
+					gt = gt + str[i] + L" ";
+					i++;
+				}
+				gt.pop_back();
+				i--;
 			}
 			else if (str[i] != L"|" && temp == 5)
 			{

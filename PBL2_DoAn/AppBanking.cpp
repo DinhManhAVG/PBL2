@@ -1217,48 +1217,173 @@ void AppBanking::displayDangNhap(wstring nameFile, bool& checkCount, HashTableAd
 void AppBanking::displayTaoTaiKhoan(HashTableThe& hashtb, HashTableBank& hashtbank)
 {
     wstring stk;
-    bool check1 = true, check2 = false;
+    bool check1 = true, check2 = true;
     do
     {
-        check1 = true, check2 = false;
+        check1 = check2 = true;
         paintKhung();
         gotoXY(30, 7);
         wcout << L"Nhập số tài khoản: ";
         getline(wcin, stk);
-        for (int i = 0; i < stk.length(); i++)
+        if (stk.length() == 0)
         {
-            if (check2 && stk[i] != L' ')
+            check1 = check2 = false;
+            gotoXY(30, 8);
+            wcout << L"Số tài khoản không hợp lệ!";
+            gotoXY(30, 9);
+            system("pause");
+            system("cls");
+        }
+        if (hashtb.checkSTK(stk))
+        {
+            check1 = check2 = false;
+            gotoXY(30, 8);
+            wcout << L"Số tài khoản đã tồn tại!";
+            gotoXY(30, 9);
+            system("pause");
+            system("cls");
+        }
+        if (check2)
+        {
+            for (int i = 0; i < stk.length(); i++)
             {
-                check1 = false;
-                gotoXY(30, 8);
-                wcout << L"Tài khoản không hợp lệ!";
-                gotoXY(30, 9);
-                system("pause");
-                system("cls");
-                break;
-            }
-            if (stk[i] == L' ')
-            {
-                check2 = true;
+                if (stk[i] == L' ')
+                {
+                    check1 = false;
+                    gotoXY(30, 8);
+                    wcout << L"Tài khoản không hợp lệ!";
+                    gotoXY(30, 9);
+                    system("pause");
+                    system("cls");
+                    break;
+                }
             }
         }
     } while (!check1);
-    gotoXY(30, 8);
-    wcout << L"Nhập mật khẩu: ";
     wstring mk;
-    getline(wcin, mk);
-    gotoXY(30, 9);
-    wcout << L"Nhập mã pin: ";
+    do
+    {
+        check1 = check2 = true;
+        paintKhung();
+        gotoXY(30, 7);
+        wcout << L"Nhập số tài khoản: " << stk;
+        gotoXY(30, 8);
+        wcout << L"Nhập mật khẩu: ";
+        getline(wcin, mk);
+        if (mk.length() == 0)
+        {
+            check1 = check2 = false;
+            gotoXY(30, 9);
+            wcout << L"Mật khẩu không hợp lệ!";
+            gotoXY(30, 10);
+            system("pause");
+            system("cls");
+        }
+        if (check2)
+        {
+            for (int i = 0; i < mk.length(); i++)
+            {
+                if (mk[i] == L' ')
+                {
+                    check1 = false;
+                    gotoXY(30, 9);
+                    wcout << L"Mật khẩu không hợp lệ!";
+                    gotoXY(30, 10);
+                    system("pause");
+                    system("cls");
+                    break;
+                }
+            }
+        }
+    } while (!check1);
     wstring mp;
-    getline(wcin, mp);
-    gotoXY(30, 10);
-    wcout << L"Nhập họ và tên: ";
+    do
+    {
+        check1 = check2 = true;
+        paintKhung();
+        gotoXY(30, 7);
+        wcout << L"Nhập số tài khoản: " << stk;
+        gotoXY(30, 8);
+        wcout << L"Nhập mật khẩu: " << mk;
+        gotoXY(30, 9);
+        wcout << L"Nhập mã pin: ";
+        getline(wcin, mp);
+        if (mp.length() == 0)
+        {
+            check1 = check2 = false;
+            gotoXY(30, 10);
+            wcout << L"Mã pin không hợp lệ!";
+            gotoXY(30, 11);
+            system("pause");
+            system("cls");
+        }
+        if (check2)
+        {
+            for (int i = 0; i < mp.length(); i++)
+            {
+                if (mp[i] == L' ')
+                {
+                    check1 = false;
+                    gotoXY(30, 10);
+                    wcout << L"Mã pin không hợp lệ!";
+                    gotoXY(30, 11);
+                    system("pause");
+                    system("cls");
+                    break;
+                }
+            }
+        }
+    } while (!check1);
     wstring hvt;
-    getline(wcin, hvt);
-    gotoXY(30, 11);
-    wcout << L"Nhập giới tính: ";
+    do
+    {
+        check1 = check2 = true;
+        paintKhung();
+        gotoXY(30, 7);
+        wcout << L"Nhập số tài khoản: " << stk;
+        gotoXY(30, 8);
+        wcout << L"Nhập mật khẩu: " << mk;
+        gotoXY(30, 9);
+        wcout << L"Nhập mã pin: " << mp;
+        gotoXY(30, 10);
+        wcout << L"Nhập họ và tên: ";
+        getline(wcin, hvt);
+        if (hvt.length() == 0)
+        {
+            check1 = false;
+            gotoXY(30, 11);
+            wcout << L"Họ và tên không hợp lệ!";
+            gotoXY(30, 12);
+            system("pause");
+            system("cls");
+        }
+    } while (!check1);
     wstring gt;
-    getline(wcin, gt);
+    do
+    {
+        check1 = true;
+        paintKhung();
+        gotoXY(30, 7);
+        wcout << L"Nhập số tài khoản: " << stk;
+        gotoXY(30, 8);
+        wcout << L"Nhập mật khẩu: " << mk;
+        gotoXY(30, 9);
+        wcout << L"Nhập mã pin: " << mp;
+        gotoXY(30, 10);
+        wcout << L"Nhập họ và tên: " << hvt;
+        gotoXY(30, 11);
+        wcout << L"Nhập giới tính: ";
+        getline(wcin, gt);
+        if (gt.length() == 0)
+        {
+            check1 = false;
+            gotoXY(30, 12);
+            wcout << L"Giới tính không hợp lệ!";
+            gotoXY(30, 13);
+            system("pause");
+            system("cls");
+        }
+    } while (!check1);
     wstring ns;
     int day, month, year;
     do
@@ -1285,16 +1410,70 @@ void AppBanking::displayTaoTaiKhoan(HashTableThe& hashtb, HashTableBank& hashtba
     } while (!check1);
     wcin.ignore(256, '\n');
     ns = ns + to_wstring(day) + L"/" + to_wstring(month) + L"/" + to_wstring(year);
-    gotoXY(30, 13);
-    wcout << L"Nhập địa chỉ: ";
     wstring dc;
-    getline(wcin, dc);
+    do
+    {
+        check1 = true;
+        paintKhung();
+        gotoXY(30, 7);
+        wcout << L"Nhập số tài khoản: " << stk;
+        gotoXY(30, 8);
+        wcout << L"Nhập mật khẩu: " << mk;
+        gotoXY(30, 9);
+        wcout << L"Nhập mã pin: " << mp;
+        gotoXY(30, 10);
+        wcout << L"Nhập họ và tên: " << hvt;
+        gotoXY(30, 11);
+        wcout << L"Nhập giới tính: " << gt;
+        gotoXY(30, 12);
+        wcout << L"Nhập ngày tháng năm sinh: " << day << L" " << month << L" " << year;
+        gotoXY(30, 13);
+        wcout << L"Nhập địa chỉ: ";
+        getline(wcin, dc);
+        if (dc.length() == 0)
+        {
+            check1 = false;
+            gotoXY(30, 14);
+            wcout << L"Địa chỉ không hợp lệ!";
+            gotoXY(30, 15);
+            system("pause");
+            system("cls");
+        }
+    } while (!check1);
     long long sd = 0;
     long long sdtk = 0; // số dư tiết kiệm
-    gotoXY(30, 14);
-    wcout << L"Nhập mã ngân hàng: "; 
     wstring mb;
-    getline(wcin, mb);
+    do
+    {
+        check1 = true;
+        paintKhung();
+        gotoXY(30, 7);
+        wcout << L"Nhập số tài khoản: " << stk;
+        gotoXY(30, 8);
+        wcout << L"Nhập mật khẩu: " << mk;
+        gotoXY(30, 9);
+        wcout << L"Nhập mã pin: " << mp;
+        gotoXY(30, 10);
+        wcout << L"Nhập họ và tên: " << hvt;
+        gotoXY(30, 11);
+        wcout << L"Nhập giới tính: " << gt;
+        gotoXY(30, 12);
+        wcout << L"Nhập ngày tháng năm sinh: " << day << L" " << month << L" " << year;
+        gotoXY(30, 13);
+        wcout << L"Nhập địa chỉ: " << dc;
+        gotoXY(30, 14);
+        wcout << L"Nhập mã ngân hàng: ";
+        getline(wcin, mb);
+        if (mb.length() == 0)
+        {
+            check1 = false;
+            gotoXY(30, 15);
+            wcout << L"Địa chỉ không hợp lệ!";
+            gotoXY(30, 16);
+            system("pause");
+            system("cls");
+        }
+    } while (!check1);
     The the(stk, mk, mp, hvt, gt, ns, dc, sd, sdtk, mb);
     Node<The>* k = new Node<The>(the);
     if (hashtb.add(k->data.getSoTaiKhoan(), k))
