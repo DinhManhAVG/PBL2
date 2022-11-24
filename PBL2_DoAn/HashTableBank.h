@@ -3,9 +3,11 @@
 class HashTableBank : public HashTable<Bank>
 {
 public:
+	int sizeArrMB;
+	wstring arrayMaBank[100];
 	HashTableBank()
 	{
-
+		sizeArrMB = 0;
 	}
 	bool add(wstring key, Node<Bank>* p)
 	{
@@ -63,6 +65,18 @@ public:
 			if (k->data.getMaBank() == key)
 			{
 				return k;
+			}
+		}
+		return NULL;
+	}
+	wstring getTenBank(wstring key)
+	{
+		int hashValueIndex = hashFunction(key);
+		for (Node<Bank>* k = buckets[hashValueIndex].head; k != NULL; k = k->next)
+		{
+			if (k->data.getMaBank() == key)
+			{
+				return k->data.getTenBank();
 			}
 		}
 		return NULL;
@@ -154,6 +168,8 @@ public:
 				Bank bank(mad, mb, tb, ls, slUser, dd);
 				Node<Bank>* p = new Node<Bank>(bank);
 				add(p->data.getMaBank(), p);
+				arrayMaBank[sizeArrMB] = mb;
+				sizeArrMB++;
 				if (str[i] == L"|||")
 				{
 					mad = L"";

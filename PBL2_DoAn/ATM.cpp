@@ -943,19 +943,29 @@ void ATM::hienThi(HashTableThe hashtb)
     while (true)
     {
         SetColor(10);
-        gotoXY(30, 5); wcout << "          **         ********     ***     ***" << endl;
-        gotoXY(30, 6); wcout << "         ****          ***        *** *** ***" << endl;
-        gotoXY(30, 7); wcout << "        ******         ***        *** *** ***" << endl;
-        gotoXY(30, 8); wcout << "       **    **        ***        ***     ***" << endl;
-        gotoXY(30, 9); wcout << "      **      **       ***        ***     ***" << endl;
-        gotoXY(45, 13);
-        SetColor(10);
-        wcout << L"Tài khoản: ";
-        SetColor(7);
+        hienThiGiaoDien();
         wstring soTaiKhoan;
-        getline(wcin, soTaiKhoan);
+        bool check1 = true;
+        do
+        {
+            check1 = true;
+            hienThiGiaoDien();
+            gotoXY(45, 13);
+            SetColor(10);
+            wcout << L"Tài khoản: ";
+            SetColor(7);
+            getline(wcin, soTaiKhoan);
+            if (soTaiKhoan.length() == 0)
+            {
+                check1 = false;
+                gotoXY(45, 14);
+                wcout << L"Số tài khoản không hợp lệ!";
+                gotoXY(45, 15);
+                system("pause");
+                system("cls");
+            }
+        } while (!check1);
         the.setSoTaiKhoan(soTaiKhoan);
-        // the.getSoTaiKhoan() = soTaiKhoan;
         gotoXY(45, 15);
         SetColor(9);
         wcout << L"Mật khẩu: ";

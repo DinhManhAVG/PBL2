@@ -155,6 +155,51 @@ void AppBanking::paintKhung()
     wcout << L"╚══════════════════════════════════════════════════════════════════╝";
     SetColor(7);
 }
+void AppBanking::paintKhungDangKi(HashTableBank hashtbank)
+{
+    SetColor(8);
+    gotoXY(20, 5);
+    wcout << L"Nhập số tài khoản đủ 9 kí tự và 3 đầu số theo yêu cầu như danh sách bên.";
+    SetColor(7);
+    SetColor(9);
+    gotoXY(45, 0);
+    for (int i = 0; i < hashtbank.sizeArrMB; i++)
+    {
+        gotoXY(95, i + 5);
+        wcout << hashtbank.arrayMaBank[i];
+        gotoXY(100, i + 5);
+        wcout << hashtbank.getTenBank(hashtbank.arrayMaBank[i]);
+    }
+    SetColor(7);
+    SetColor(2);
+    gotoXY(20, 6);
+    wcout << L"╔══════════════════════════════════════════════════════════════════╗";
+    gotoXY(20, 7); wcout << L"║";
+    gotoXY(87, 7); wcout << L"║";
+    gotoXY(20, 8); wcout << L"║";
+    gotoXY(87, 8); wcout << L"║";
+    gotoXY(20, 9); wcout << L"║";
+    gotoXY(87, 9); wcout << L"║";
+    gotoXY(20, 10); wcout << L"║";
+    gotoXY(87, 10); wcout << L"║";
+    gotoXY(20, 11); wcout << L"║";
+    gotoXY(87, 11); wcout << L"║";
+    gotoXY(20, 12); wcout << L"║";
+    gotoXY(87, 12); wcout << L"║";
+    gotoXY(20, 13); wcout << L"║";
+    gotoXY(87, 13); wcout << L"║";
+    gotoXY(20, 14); wcout << L"║";
+    gotoXY(87, 14); wcout << L"║";
+    gotoXY(20, 15); wcout << L"║";
+    gotoXY(87, 15); wcout << L"║";
+    gotoXY(20, 16); wcout << L"║";
+    gotoXY(87, 16); wcout << L"║";
+    gotoXY(20, 17); wcout << L"║";
+    gotoXY(87, 17); wcout << L"║";
+    gotoXY(20, 18);
+    wcout << L"╚══════════════════════════════════════════════════════════════════╝";
+    SetColor(7);
+}
 void AppBanking::paintApp()
 {
     hConsoleColor = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -1216,32 +1261,68 @@ void AppBanking::displayDangNhap(wstring nameFile, bool& checkCount, HashTableAd
 }
 void AppBanking::displayTaoTaiKhoan(HashTableThe& hashtb, HashTableBank& hashtbank)
 {
-    wstring stk;
-    bool check1 = true, check2 = true;
+
+    wstring stk, substk;
+    bool check1 = true, check2 = true, check3 = true;
+    wchar_t ch;
+    const wchar_t ENTER = 13;
+    const wchar_t BACKSPACE = 8;
     do
     {
-        check1 = check2 = true;
-        paintKhung();
+        paintKhungDangKi(hashtbank);
+        check1 = check2 = check3 = true;
         gotoXY(30, 7);
         wcout << L"Nhập số tài khoản: ";
-        getline(wcin, stk);
-        if (stk.length() == 0)
+        while ((ch = _getch()) != ENTER)
         {
+            if (ch == BACKSPACE && stk.size() > 0)
+            {
+                stk[stk.size() - 1] = '\0';
+                stk.resize(stk.size() - 1);
+                gotoXY(whereX() - 1, whereY());
+                wcout << L" ";
+                gotoXY(whereX() - 1, whereY());
+            }
+            else if (ch != BACKSPACE) 
+            {
+                if (stk.length() < 9)
+                {
+                    stk += ch;
+                    if (stk.length() < 4)
+                        substk += ch;
+                    wcout << ch;
+                }
+            }
+        }
+        if (stk.length() < 9)
+        {
+            stk = L"";
             check1 = check2 = false;
             gotoXY(30, 8);
-            wcout << L"Số tài khoản không hợp lệ!";
+            wcout << L"Số tài khoản bị trống hoặc không đủ 9 số theo yêu cầu!";
             gotoXY(30, 9);
             system("pause");
             system("cls");
         }
-        if (hashtb.checkSTK(stk))
+        else
         {
-            check1 = check2 = false;
-            gotoXY(30, 8);
-            wcout << L"Số tài khoản đã tồn tại!";
-            gotoXY(30, 9);
-            system("pause");
-            system("cls");
+            for (int i = 0; i < hashtbank.sizeArrMB; i++)
+            {
+                if (substk == hashtbank.arrayMaBank[i])
+                    break;
+                if (i == hashtbank.sizeArrMB - 1)
+                    check3 = false;
+            }
+            if (!check3)
+            {
+                stk = L"";
+                check1 = check2 = false;
+                gotoXY(30, 8);
+                wcout << L"3 đầu số tài khoản không có trong danh sách mã ngân hàng!";
+                gotoXY(30, 9);
+                system("pause");
+                system("cls");
+            }
         }
         if (check2)
         {
@@ -1249,6 +1330,7 @@ void AppBanking::displayTaoTaiKhoan(HashTableThe& hashtb, HashTableBank& hashtba
             {
                 if (stk[i] == L' ')
                 {
+                    stk = L"";
                     check1 = false;
                     gotoXY(30, 8);
                     wcout << L"Tài khoản không hợp lệ!";

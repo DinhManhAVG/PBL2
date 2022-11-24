@@ -22,6 +22,7 @@ public:
 	void doiMatKhauAd(HashTableAdmin& hashtad);
 	bool checkAccount(wstring acc, wstring pass, wstring nameFile);
 	void paintKhung();
+	void paintKhungDangKi(HashTableBank hashtbank);
 	void paintApp();
 	void displayApp(HashTableThe& hashtb, HashTableBank hashtbank, HashTableAdmin hashtad);
 	void paintAdmin();

@@ -13,7 +13,7 @@
 #include "windows.h" // thư viện này bá đạo lắm nhé - chứa nhiều đồ chơi nek - cứ tìm hiểu dần dần s
 using namespace std;
 //======= lấy tọa độ x của con trỏ hiện tại =============
-#define KEY_NONE	-1
+#define KEY_NONE -1
 //Khai báo các biến toàn cục
 static int x, y;
 static HANDLE hConsoleColor;
