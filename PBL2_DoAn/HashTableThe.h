@@ -79,13 +79,13 @@ public:
 		Bank bank;
 		HashTableBank htbank;
 		htbank.docFile();
-		wcout << L"Số tài khoản | Mật khẩu | Mã pin | Họ và tên | Giới tính | Ngày sinh | Địa chỉ | Số dư | Số dư tiết kiệm | Tên ngân hàng" << endl;
+		wcout << L"Số tài khoản\tMật khẩu\tMã pin\tHọ và tên\tGiới tính\tNgày sinh\tĐịa chỉ\tSố dư\tSố dư tiết kiệm\tTên ngân hàng" << endl;
 		for (int i = 0; i < SIZE; i++)
 		{
 			for (Node<The>* k = buckets[i].head; k != NULL; k = k->next)
 			{
 				bank = htbank.get(k->data.getMaBank())->getNode();
-				wcout << k->data.getSoTaiKhoan() << L" | " << k->data.getMatKhau() << L" | " << k->data.getMaPin() << L" | " << k->data.getHoVaTen() << L" | " << k->data.getGioiTinh() << L" | " << k->data.getNgaySinh() << L" | " << k->data.getDiaChi() << L" | " << k->data.getSoDu() << L" | " << k->data.getSoDuTietKiem() << L" | " << bank.getTenBank() << L" ||| " << endl;
+				wcout << k->data.getSoTaiKhoan() << L"\t" << k->data.getMatKhau() << L"\t" << k->data.getMaPin() << L"\t" << k->data.getHoVaTen() << L"\t" << k->data.getGioiTinh() << L"\t" << k->data.getNgaySinh() << L"\t" << k->data.getDiaChi() << L"\t" << k->data.getSoDu() << L"\t" << k->data.getSoDuTietKiem() << L"\t" << bank.getTenBank() << endl;
 			}
 		}
 	}
@@ -135,7 +135,7 @@ public:
 			{
 				if (soTien > k->data.getSoDu())
 				{
-					gotoXY(30, 18);
+					gotoXY(30, 16);
 					wcout << L"Số dư không đủ. Yêu cầu nhập lại" << endl; return;
 				}
 				else
@@ -156,12 +156,12 @@ public:
 		}
 		if (check == false)
 		{
-			gotoXY(30, 18);
+			gotoXY(30, 16);
 			wcout << L"Không tìm thấy số tài khoản này!" << endl;
 		}
 		else
 		{
-			gotoXY(30, 18);
+			gotoXY(30, 16);
 			wcout << L"Đã chuyển thành công!" << endl;
 		}
 	}
@@ -249,21 +249,21 @@ public:
 			{
 				bank = htbank.get(k->data.getMaBank())->getNode();
 				SetColor(11);
-				gotoXY(59, 26);
+				gotoXY(59, 25);
 				wcout << L"Số tài khoản: " << k->data.getSoTaiKhoan() << endl;
-				gotoXY(59, 28);
+				gotoXY(59, 27);
 				wcout << L"Mã Pin: " << k->data.getMaPin() << endl;
-				gotoXY(59, 30);
+				gotoXY(59, 29);
 				wcout << L"Tên người dùng: " << k->data.getHoVaTen() << endl;
-				gotoXY(59, 32);
+				gotoXY(59, 31);
 				wcout << L"Giới tính: " << k->data.getGioiTinh() << endl;
-				gotoXY(59, 34);
+				gotoXY(59, 33);
 				wcout << L"Ngày sinh: " << k->data.getNgaySinh() << endl;
-				gotoXY(59, 36);
+				gotoXY(59, 35);
 				wcout << L"Địa chỉ: " << k->data.getDiaChi() << endl;
-				gotoXY(59, 38);
+				gotoXY(59, 37);
 				wcout << L"Số dư hiện tại: " << k->data.getSoDu() << endl;
-				gotoXY(59, 40);
+				gotoXY(59, 39);
 				wcout << L"Tên ngân hàng: " << bank.getTenBank() << endl;
 				break;
 			}
@@ -303,7 +303,7 @@ public:
 			int vitrimin = i;
 			for (int j = i; j < index; j++)
 			{
-				if (danhSachNode[j] < danhSachNode[vitrimin])
+				if (danhSachNode[j]->data.getSoDu() > danhSachNode[vitrimin]->data.getSoDu())
 				{
 					vitrimin = j;
 				}
@@ -314,10 +314,11 @@ public:
 			danhSachNode[i] = danhSachNode[vitrimin];
 			danhSachNode[vitrimin] = temp;
 		}
+		wcout << L"Họ và tên\tSố dư\tTên ngân hàng" << endl;
 		for (int i = 0; i < index; i++)
 		{
 			bank = htbank.get(danhSachNode[i]->data.getMaBank())->getNode();
-			wcout << danhSachNode[i]->data.getHoVaTen() << L" " << danhSachNode[i]->data.getSoDu() << L" " << bank.getTenBank() << endl;
+			wcout << danhSachNode[i]->data.getHoVaTen() << L"\t" << danhSachNode[i]->data.getSoDu() << L"\t" << bank.getTenBank() << endl;
 		}
 	}
 	long long layRaSoDu(wstring soTaiKhoan)
@@ -429,7 +430,7 @@ public:
 		}
 		input.close();
 		int temp = 0;
-		wstring stk, mk, mp, hvt, gt, ns, dc,mb;
+		wstring stk, mk, mp, hvt, gt, ns, dc, mb;
 		long long sd = 0, sdtk = 0;
 		for (int i = 0; i < n; i++)
 		{
@@ -442,7 +443,7 @@ public:
 				mb = str[i];
 				i++;
 				temp = 0;
-				The the(stk, mk, mp, hvt, gt, ns, dc, sd, sdtk,mb);
+				The the(stk, mk, mp, hvt, gt, ns, dc, sd, sdtk, mb);
 				Node<The>* p = new Node<The>(the);
 				add(p->data.getSoTaiKhoan(), p);
 				if (str[i] == L"|||")

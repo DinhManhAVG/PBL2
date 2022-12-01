@@ -114,16 +114,54 @@ void ATM::rutTienTietKiem(HashTableThe& ht, wstring getSoTaiKhoan)
 }
 void ATM::chuyenTien(HashTableThe& ht, wstring soTaiKhoanNguoiChuyen)
 {
+    wchar_t ch;
+    const wchar_t ENTER = 13;
+    const wchar_t BACKSPACE = 8;
+    const wchar_t CTRL_E = 5;
     hienThiGiaoDien();
     SetColor(11);
     gotoXY(30, 14); wcin.ignore(0);
     wstring soTaiKhoanNguoiNhan;
-    wcout << L"Nhập số tài khoản cần chuyển: "; wcin >> soTaiKhoanNguoiNhan;
+    bool check1 = true;
+    do
+    {
+        hienThiGiaoDien();
+        gotoXY(30, 14);
+        wcout << L"Nhập số tài khoản cần chuyển: ";
+        while ((ch = _getch()) != ENTER)
+        {
+            if (ch == BACKSPACE && soTaiKhoanNguoiNhan.size() > 0)
+            {
+                soTaiKhoanNguoiNhan[soTaiKhoanNguoiNhan.size() - 1] = '\0';
+                soTaiKhoanNguoiNhan.resize(soTaiKhoanNguoiNhan.size() - 1);
+                gotoXY(whereX() - 1, whereY());
+                wcout << L" ";
+                gotoXY(whereX() - 1, whereY());
+            }
+            else if (ch != BACKSPACE)
+            {
+                if (soTaiKhoanNguoiNhan.length() < 9)
+                {
+                    soTaiKhoanNguoiNhan += ch;
+                    wcout << ch;
+                }
+            }
+        }
+        if (soTaiKhoanNguoiNhan.length() == 0)
+        {
+            check1 = false;
+            gotoXY(30, 15);
+            wcout << L"Số tài khoản không hợp lệ!";
+            gotoXY(30, 16);
+            system("pause");
+            system("cls");
+        }
+    } while (!check1);
     int soTien;
-    gotoXY(30, 16);
+    gotoXY(30, 15);
     wcout << L"Nhập số tiền cần chuyển: "; wcin >> soTien;
     if (soTien < 0) {
-        gotoXY(30, 18);
+        gotoXY(30, 16);
         wcout << L"Số tiền nhập không thỏa mãn. Yêu cầu nhập lại" << endl;
         system("pause");
         system("cls");
@@ -940,6 +978,10 @@ void ATM::luaChonChucNang(HashTableThe& ht, HashTableBank htbank)
 void ATM::hienThi(HashTableThe hashtb)
 {
     ShowCur(false);
+    wchar_t ch;
+    const wchar_t ENTER = 13;
+    const wchar_t BACKSPACE = 8;
+    const wchar_t CTRL_E = 5;
     while (true)
     {
         SetColor(10);
@@ -954,7 +996,25 @@ void ATM::hienThi(HashTableThe hashtb)
             SetColor(10);
             wcout << L"Tài khoản: ";
             SetColor(7);
-            getline(wcin, soTaiKhoan);
+            while ((ch = _getch()) != ENTER)
+            {
+                if (ch == BACKSPACE && soTaiKhoan.size() > 0)
+                {
+                    soTaiKhoan[soTaiKhoan.size() - 1] = '\0';
+                    soTaiKhoan.resize(soTaiKhoan.size() - 1);
+                    gotoXY(whereX() - 1, whereY());
+                    wcout << L" ";
+                    gotoXY(whereX() - 1, whereY());
+                }
+                else if (ch != BACKSPACE)
+                {
+                    if (soTaiKhoan.length() < 9)
+                    {
+                        soTaiKhoan += ch;
+                        wcout << ch;
+                    }
+                }
+            }
             if (soTaiKhoan.length() == 0)
             {
                 check1 = false;

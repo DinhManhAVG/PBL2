@@ -4,7 +4,7 @@ using namespace std;
 static int count = 0;
 class The
 {
-protected:
+private:
 	wstring hoVaTen;
 	wstring gioiTinh;
 	wstring ngaySinh;

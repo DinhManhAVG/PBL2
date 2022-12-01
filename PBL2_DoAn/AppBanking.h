@@ -3,7 +3,7 @@
 #include"HashTableAdmin.h"
 class AppBanking
 {
-protected:
+private:
 	The the;
 	Admin ad;
 public:
