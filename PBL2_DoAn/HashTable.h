@@ -22,6 +22,6 @@ public:
 	virtual Node<T>* get(wstring key) = 0;
 	virtual void xuatHashTable() = 0;
 	virtual void ghiFile() = 0;
-	virtual void docFile() = 0;
+	virtual bool docFile() = 0;
 
 };

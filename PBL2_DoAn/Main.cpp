@@ -10,9 +10,37 @@ int main()
     HashTableThe hs;
     HashTableAdmin had;
     HashTableBank hsb;
-    hs.docFile();
-    had.docFile();
-    hsb.docFile();
+    bool checklogAtm = true;
+    if (!hs.docFile())
+    {
+        abk.paintKhung();
+        gotoXY(23, 9);
+        wcout << L"File được đọc vào HashTableThe đang trống, không thể tiếp tục!";
+        gotoXY(35, 10);
+        system("pause");
+        system("cls");
+        exit(0);
+    }
+    if (!had.docFile())
+    {
+        abk.paintKhung();
+        gotoXY(23, 9);
+        wcout << L"File được đọc vào HashTableAdmin đang trống, không thể tiếp tục!";
+        gotoXY(35, 10);
+        system("pause");
+        system("cls");
+        exit(0);
+    }
+    if (!hsb.docFile())
+    {
+        abk.paintKhung();
+        gotoXY(23, 9);
+        wcout << L"File được đọc vào HashTableBank đang trống, không thể tiếp tục!";
+        gotoXY(35, 10);
+        system("pause");
+        system("cls");
+        exit(0);
+    }
     ShowCur(false);
     // Vòng lặp để quét qua các event  
     while (true)
@@ -100,9 +128,11 @@ int main()
                             }
                             else if ((x >= 40 && x <= 61) && (y >= 9 && y <= 11))
                             {
+                                checklogAtm = true;
                                 system("cls");
-                                atm.hienThi(hs);
-                                atm.luaChonChucNang(hs, hsb);
+                                atm.hienThi(hs, checklogAtm);
+                                if (checklogAtm)
+                                    atm.luaChonChucNang(hs, hsb);
                             }
                             else if ((x >= 40 && x <= 61) && (y >= 14 && y <= 16))
                             {

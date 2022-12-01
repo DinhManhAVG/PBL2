@@ -975,15 +975,26 @@ void ATM::luaChonChucNang(HashTableThe& ht, HashTableBank htbank)
         }
     }
 }
-void ATM::hienThi(HashTableThe hashtb)
+void ATM::hienThi(HashTableThe hashtb, bool& checklogin)
 {
     ShowCur(false);
     wchar_t ch;
     const wchar_t ENTER = 13;
     const wchar_t BACKSPACE = 8;
     const wchar_t CTRL_E = 5;
+    int count = 0;
     while (true)
     {
+        if (count == 1)
+        {
+            gotoXY(45, 16);
+            wcout << L"Tài khoản đăng nhập không thành công!";
+            gotoXY(45, 17);
+            checklogin = false;
+            system("pause");
+            system("cls");
+            break;
+        }
         SetColor(10);
         hienThiGiaoDien();
         wstring soTaiKhoan;
@@ -1055,10 +1066,7 @@ void ATM::hienThi(HashTableThe hashtb)
         if (hashtb.checkLoginATM(the.getSoTaiKhoan(), the.getMaPin())) {
             break;
         }
-
-        gotoXY(45, 16);
-        wcout << L"Tài khoản đăng nhập không thành công!";
-        _getch();
-        system("cls");
+        count++;
+        
     }
 }

@@ -101,7 +101,7 @@ public:
 		}
 		output.close();
 	}
-	void docFile()
+	bool docFile()
 	{
 		wstring str[2000];
 		std::wifstream input(L"Admin.txt");
@@ -129,6 +129,8 @@ public:
 			n++;
 		}
 		input.close();
+		if (count == 0 && n == 0)
+			return false;
 		int temp = 0;
 		wstring tk, mk, t, ns;
 		for (int i = 0; i < n; i++)
@@ -176,5 +178,6 @@ public:
 			}
 			
 		}
+		return true;
 	}
 };

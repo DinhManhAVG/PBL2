@@ -43,19 +43,9 @@ wstring Admin::getNgaySinh()
 	return ngaySinh;
 }
 
-void Admin::DanhSachThongTin()
+void Admin::DanhSachThongTin(HashTableThe hashtbUser)
 {
-	HashTableThe hashtbUser;
-	hashtbUser.docFile();
 	hashtbUser.xuatHashTable();
 	system("pause");
 	system("cls");
-}
-void Admin::XoaThongTinUser() 
-{
-
-}
-void Admin::NapTienUser() 
-{
-
 }

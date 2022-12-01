@@ -119,7 +119,7 @@ public:
 		}
 		output.close();
 	}
-	void docFile()
+	bool docFile()
 	{
 		wstring str[2000];
 		std::wifstream input(L"Bank.txt");
@@ -147,6 +147,8 @@ public:
 			n++;
 		}
 		input.close();
+		if (count == 0 && n == 0)
+			return false;
 		int temp = 0;
 		wstring mad, mb, tb, dd;
 		double ls = 0, slUser = 0;
@@ -169,7 +171,7 @@ public:
 				Node<Bank>* p = new Node<Bank>(bank);
 				add(p->data.getMaBank(), p);
 				arrayMaBank[sizeArrMB] = mb;
-				sizeArrMB++;
+				sizeArrMB++; 
 				if (str[i] == L"|||")
 				{
 					mad = L"";
@@ -208,5 +210,6 @@ public:
 				slUser = slUser + stoi(str[i]);
 			}
 		}
+		return true;
 	}
 };

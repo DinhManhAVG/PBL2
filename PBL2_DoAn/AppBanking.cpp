@@ -915,7 +915,7 @@ void AppBanking::displayAdmin(HashTableAdmin& hashtad, HashTableThe& hashtuser, 
                             {
                                 system("cls");
                                 Admin ad;
-                                ad.DanhSachThongTin();
+                                ad.DanhSachThongTin(hashtuser);
                             }
                             else if ((x >= 55 && x <= 81) && (y >= 10 && y <= 12))
                             {
@@ -1244,11 +1244,11 @@ void AppBanking::displayDangNhap(wstring nameFile, bool& checkCount, HashTableAd
     int count = 0;
     while (true)
     {
-        if (count == 3)
+        if (count == 1)
         {
             paintKhung();
             gotoXY(35, 9);
-            wcout << L"Bạn đã đăng nhập sai quá số lần cho phép!";
+            wcout << L"Tài khoản hoặc mật khẩu sai!!!";
             gotoXY(35, 10);
             checkCount = false;
             system("pause");
@@ -1374,10 +1374,7 @@ void AppBanking::displayDangNhap(wstring nameFile, bool& checkCount, HashTableAd
                 break;
             }
         }
-        gotoXY(35, 13);
-        wcout << L"Tài khoản hoặc mật khẩu sai!!!";
         count++;
-        _getch();
         system("cls");
     }
 }

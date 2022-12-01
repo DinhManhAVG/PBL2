@@ -18,5 +18,5 @@ public:
     void hienThiGiaoDien();
     void doiMaPin(HashTableThe&, wstring);
     void luaChonChucNang(HashTableThe& ht, HashTableBank htbank);
-    void hienThi(HashTableThe hashtb);
+    void hienThi(HashTableThe hashtb, bool& checklogin);
 };

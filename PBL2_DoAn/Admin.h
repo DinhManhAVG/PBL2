@@ -19,8 +19,6 @@ public:
 	wstring getTenAdmin();
 	void setNgaySinh(wstring);
 	wstring getNgaySinh();
-	void DanhSachThongTin();
-	void XoaThongTinUser();
-	void NapTienUser();
+	void DanhSachThongTin(HashTableThe hashtbUser);
 };
 

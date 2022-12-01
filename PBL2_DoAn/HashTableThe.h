@@ -401,7 +401,7 @@ public:
 		}
 		output.close();
 	}
-	void docFile()
+	bool docFile()
 	{
 		wstring str[2000];
 		std::wifstream input(L"The.txt");
@@ -429,6 +429,8 @@ public:
 			n++;
 		}
 		input.close();
+		if (count == 0 && n == 0)
+			return false;
 		int temp = 0;
 		wstring stk, mk, mp, hvt, gt, ns, dc, mb;
 		long long sd = 0, sdtk = 0;
@@ -518,5 +520,6 @@ public:
 				sdtk = sdtk + stoll(str[i]);
 			}
 		}
+		return true;
 	}
 };
