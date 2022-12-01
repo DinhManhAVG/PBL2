@@ -3,6 +3,7 @@
 #include<fstream>
 #include <stdio.h>
 #include <string>
+#include <iomanip>
 #include <conio.h>
 #include <locale>
 #include <codecvt>

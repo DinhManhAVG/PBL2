@@ -79,13 +79,13 @@ public:
 		Bank bank;
 		HashTableBank htbank;
 		htbank.docFile();
-		wcout << L"Số tài khoản\tMật khẩu\tMã pin\tHọ và tên\tGiới tính\tNgày sinh\tĐịa chỉ\tSố dư\tSố dư tiết kiệm\tTên ngân hàng" << endl;
+		wcout << setw(9) << left << L"Số tài khoản\t"  << setw(9) << left << L"Mật khẩu\t" <<setw(6) << left <<L"Mã pin\t"<< setw(9) << left << L"Họ và tên\t" << setw(10) << left << L"Giới tính\t" << setw(10) << left << L"Ngày sinh\t" << setw(16) << left << L"Địa chỉ\t" << setw(10) << left << L"Số dư\t" << setw(19) << left << L"Tên ngân hàng" << endl;
 		for (int i = 0; i < SIZE; i++)
 		{
 			for (Node<The>* k = buckets[i].head; k != NULL; k = k->next)
 			{
 				bank = htbank.get(k->data.getMaBank())->getNode();
-				wcout << k->data.getSoTaiKhoan() << L"\t" << k->data.getMatKhau() << L"\t" << k->data.getMaPin() << L"\t" << k->data.getHoVaTen() << L"\t" << k->data.getGioiTinh() << L"\t" << k->data.getNgaySinh() << L"\t" << k->data.getDiaChi() << L"\t" << k->data.getSoDu() << L"\t" << k->data.getSoDuTietKiem() << L"\t" << bank.getTenBank() << endl;
+				wcout << setw(9) << left << k->data.getSoTaiKhoan() << L"\t" << setw(15) << left << k->data.getMatKhau() << L"\t"  << setw(6) << left << k->data.getMaPin() << L"\t" << setw(9) << left << k->data.getHoVaTen() << L"\t" << setw(10) << left << k->data.getGioiTinh() << L"\t" << setw(10) << left << k->data.getNgaySinh() << L"\t" << setw(10) << left << k->data.getDiaChi() << L"\t" << setw(10) << left << k->data.getSoDu() << L"\t" << setw(10) << left << bank.getTenBank() << endl;
 			}
 		}
 	}
@@ -314,11 +314,11 @@ public:
 			danhSachNode[i] = danhSachNode[vitrimin];
 			danhSachNode[vitrimin] = temp;
 		}
-		wcout << L"Họ và tên\tSố dư\tTên ngân hàng" << endl;
+		wcout << setw(26) << left << L"Họ và tên\t" << setw(30) << left << L"Số dư\t" << setw(26) << left << L"Tên ngân hàng\t" << endl;
 		for (int i = 0; i < index; i++)
 		{
 			bank = htbank.get(danhSachNode[i]->data.getMaBank())->getNode();
-			wcout << danhSachNode[i]->data.getHoVaTen() << L"\t" << danhSachNode[i]->data.getSoDu() << L"\t" << bank.getTenBank() << endl;
+			wcout << setw(30) << left << danhSachNode[i]->data.getHoVaTen() << L"\t" << setw(30) << left << danhSachNode[i]->data.getSoDu() << L"\t" << setw(30) << left << bank.getTenBank() << endl;
 		}
 	}
 	long long layRaSoDu(wstring soTaiKhoan)
