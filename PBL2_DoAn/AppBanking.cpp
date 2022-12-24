@@ -1,5 +1,5 @@
 ﻿ #include "AppBanking.h"
-void AppBanking::chuyenKhoan(HashTableThe hashtb)
+void AppBanking::chuyenKhoan(HashTableThe& hashtb)
 {
     wchar_t ch;
     const wchar_t ENTER = 13;
@@ -7,44 +7,60 @@ void AppBanking::chuyenKhoan(HashTableThe hashtb)
     const wchar_t CTRL_E = 5;
     SetColor(11);
     wstring soTaiKhoanNguoiNhan;
-    bool check1 = true;
-    do
+    paintKhung();
+    gotoXY(30, 7);
+    wcout << L"Nhập số tài khoản cần chuyển: ";
+    while ((ch = _getch()) != ENTER)
     {
-        paintKhung();
-        gotoXY(30, 7);
-        wcout << L"Nhập số tài khoản cần chuyển: ";
-        while ((ch = _getch()) != ENTER)
+        if (ch == BACKSPACE && soTaiKhoanNguoiNhan.size() > 0)
         {
-            if (ch == BACKSPACE && soTaiKhoanNguoiNhan.size() > 0)
+            soTaiKhoanNguoiNhan[soTaiKhoanNguoiNhan.size() - 1] = '\0';
+            soTaiKhoanNguoiNhan.resize(soTaiKhoanNguoiNhan.size() - 1);
+            gotoXY(whereX() - 1, whereY());
+            wcout << L" ";
+            gotoXY(whereX() - 1, whereY());
+        }
+        else if (ch != BACKSPACE)
+        {
+            if (soTaiKhoanNguoiNhan.length() < 9)
             {
-                soTaiKhoanNguoiNhan[soTaiKhoanNguoiNhan.size() - 1] = '\0';
-                soTaiKhoanNguoiNhan.resize(soTaiKhoanNguoiNhan.size() - 1);
-                gotoXY(whereX() - 1, whereY());
-                wcout << L" ";
-                gotoXY(whereX() - 1, whereY());
-            }
-            else if (ch != BACKSPACE)
-            {
-                if (soTaiKhoanNguoiNhan.length() < 9)
-                {
-                    soTaiKhoanNguoiNhan += ch;
-                    wcout << ch;
-                }
+                soTaiKhoanNguoiNhan += ch;
+                wcout << ch;
             }
         }
-        if (soTaiKhoanNguoiNhan.length() == 0)
-        {
-            check1 = false;
-            gotoXY(30, 8);
-            wcout << L"Số tài khoản không hợp lệ!";
-            gotoXY(30, 9);
-            system("pause");
-            system("cls");
-        }
-    } while (!check1);
-    int soTien;
+    }
+    if (soTaiKhoanNguoiNhan.length() == 0)
+    {
+        gotoXY(30, 8);
+        wcout << L"Số tài khoản không hợp lệ!";
+        gotoXY(30, 9);
+        system("pause");
+        system("cls");
+        return;
+    }
+    else if (!hashtb.checkSTK(soTaiKhoanNguoiNhan))
+    {
+        gotoXY(30, 8);
+        wcout << L"Số tài khoản không tồn tại!";
+        gotoXY(30, 9);
+        system("pause");
+        system("cls");
+        return;
+    }
+    long long soTien;
     gotoXY(30, 8);
     wcout << L"Nhập số tiền cần chuyển: "; wcin >> soTien;
+    wcin.clear();
+    wcin.ignore(LLONG_MAX, '\n');
+    if (soTien < 0) 
+    {
+        gotoXY(30, 16);
+        wcout << L"Số tiền nhập không thỏa mãn. Yêu cầu nhập lại" << endl;
+        gotoXY(30, 17);
+        system("pause");
+        system("cls");
+        return;
+    }
     hashtb.timKiemNguoiNhan(the.getSoTaiKhoan(), soTaiKhoanNguoiNhan, soTien);
     gotoXY(30, 17);
     system("pause");
@@ -66,21 +82,84 @@ void AppBanking::hienThiTopKhachHang(HashTableThe hashtb, HashTableBank htbank)
 }
 void AppBanking::doiMatKhau(HashTableThe& hashtb)
 {
+    wchar_t ch;
+    const wchar_t ENTER = 13;
+    const wchar_t BACKSPACE = 8;
+    const wchar_t CTRL_E = 5;
     system("cls");
     paintKhung();
     wstring matKhauHienTai, matKhauMoi;
     gotoXY(30, 7);
     wcout << L"Nhập mật khẩu hiện tại: ";
-    wcin >> matKhauHienTai;
+    while ((ch = _getch()) != ENTER)
+    {
+        if (ch == BACKSPACE && matKhauHienTai.size() > 0)
+        {
+            matKhauHienTai[matKhauHienTai.size() - 1] = '\0';
+            matKhauHienTai.resize(matKhauHienTai.size() - 1);
+            gotoXY(whereX() - 1, whereY());
+            wcout << L" ";
+            gotoXY(whereX() - 1, whereY());
+        }
+        else if (ch != BACKSPACE)
+        {
+            matKhauHienTai += ch;
+            wcout << ch;
+        }
+    }
+    if (matKhauHienTai.length() == 0)
+    {
+        gotoXY(30, 9);
+        wcout << L"Mật khẩu không hợp lệ!";
+        gotoXY(30, 10);
+        system("pause");
+        system("cls");
+        return;
+    }
     if (matKhauHienTai == the.getMatKhau())
     {
         gotoXY(30, 8);
         wcout << L"Nhập mật khẩu mới: ";
-        wcin >> matKhauMoi;
+        while ((ch = _getch()) != ENTER)
+        {
+            if (ch == BACKSPACE && matKhauMoi.size() > 0)
+            {
+                matKhauMoi[matKhauMoi.size() - 1] = '\0';
+                matKhauMoi.resize(matKhauMoi.size() - 1);
+                gotoXY(whereX() - 1, whereY());
+                wcout << L" ";
+                gotoXY(whereX() - 1, whereY());
+            }
+            else if (ch != BACKSPACE)
+            {
+                matKhauMoi += ch;
+                wcout << ch;
+            }
+        }
+        if (matKhauMoi.length() == 0)
+        {
+            gotoXY(30, 9);
+            wcout << L"Mật khẩu mới không hợp lệ!";
+            gotoXY(30, 10);
+            system("pause");
+            system("cls");
+            return;
+        }
         if (matKhauHienTai != matKhauMoi)
         {
             the.setMatKhau(matKhauMoi);
             hashtb.chinhSuaMatKhau(the.getSoTaiKhoan(), matKhauMoi);
+            gotoXY(30, 9);
+            wcout << L"Đổi mật khẩu thành công!";
+        }
+        else
+        {
+            gotoXY(30, 9);
+            wcout << L"Mật khẩu mới trùng mật khẩu cũ!";
+            gotoXY(30, 10);
+            system("pause");
+            system("cls");
+            return;
         }
     }
     else
@@ -94,23 +173,84 @@ void AppBanking::doiMatKhau(HashTableThe& hashtb)
 }
 void AppBanking::doiMatKhauAd(HashTableAdmin& hashtad)
 {
+    wchar_t ch;
+    const wchar_t ENTER = 13;
+    const wchar_t BACKSPACE = 8;
+    const wchar_t CTRL_E = 5;
     system("cls");
     paintKhung();
     wstring matKhauHienTai, matKhauMoi;
     gotoXY(30, 7);
     wcout << L"Nhập mật khẩu hiện tại: ";
-    wcin >> matKhauHienTai;
+    while ((ch = _getch()) != ENTER)
+    {
+        if (ch == BACKSPACE && matKhauHienTai.size() > 0)
+        {
+            matKhauHienTai[matKhauHienTai.size() - 1] = '\0';
+            matKhauHienTai.resize(matKhauHienTai.size() - 1);
+            gotoXY(whereX() - 1, whereY());
+            wcout << L" ";
+            gotoXY(whereX() - 1, whereY());
+        }
+        else if (ch != BACKSPACE)
+        {
+            matKhauHienTai += ch;
+            wcout << ch;
+        }
+    }
+    if (matKhauHienTai.length() == 0)
+    {
+        gotoXY(30, 9);
+        wcout << L"Mật khẩu không hợp lệ!";
+        gotoXY(30, 10);
+        system("pause");
+        system("cls");
+        return;
+    }
     if (matKhauHienTai == ad.getMatKhauAdmin())
     {
         gotoXY(30, 8);
         wcout << L"Nhập mật khẩu mới: ";
-        wcin >> matKhauMoi;
+        while ((ch = _getch()) != ENTER)
+        {
+            if (ch == BACKSPACE && matKhauMoi.size() > 0)
+            {
+                matKhauMoi[matKhauMoi.size() - 1] = '\0';
+                matKhauMoi.resize(matKhauMoi.size() - 1);
+                gotoXY(whereX() - 1, whereY());
+                wcout << L" ";
+                gotoXY(whereX() - 1, whereY());
+            }
+            else if (ch != BACKSPACE)
+            {
+                matKhauMoi += ch;
+                wcout << ch;
+            }
+        }
+        if (matKhauMoi.length() == 0)
+        {
+            gotoXY(30, 9);
+            wcout << L"Mật khẩu mới không hợp lệ!";
+            gotoXY(30, 10);
+            system("pause");
+            system("cls");
+            return;
+        }
         if (matKhauHienTai != matKhauMoi)
         {
             ad.setMatKhauAdmin(matKhauMoi);
-            hashtad.docFile();
             hashtad.chinhSuaMatKhau(ad.getMaAdmin(), matKhauMoi);
-            hashtad.ghiFile();
+            gotoXY(30, 9);
+            wcout << L"Đổi mật khẩu thành công!";
+        }
+        else
+        {
+            gotoXY(30, 9);
+            wcout << L"Mật khẩu mới trùng mật khẩu cũ!";
+            gotoXY(30, 10);
+            system("pause");
+            system("cls");
+            return;
         }
     }
     else
@@ -925,13 +1065,18 @@ void AppBanking::displayAdmin(HashTableAdmin& hashtad, HashTableThe& hashtuser, 
                                     wcin >> soTien;
                                     wcin.clear();
                                     wcin.ignore(LLONG_MAX, '\n');
-                                    if (soTien < LLONG_MAX)
+                                    if (soTien < 0)
+                                    {
+                                        gotoXY(30, 9);
+                                        wcout << L"Số tiền nhập không hợp lệ!";
+                                    }
+                                    else if (soTien < LLONG_MAX)
                                     {
                                         hashtuser.napTienUser(stk, soTien);
                                         gotoXY(30, 9);
                                         wcout << L"Nạp tiền cho người dùng thành công!";
                                     }
-                                    else
+                                    else if( soTien >= LLONG_MAX)
                                     {
                                         gotoXY(30, 9);
                                         wcout << L"Số tiền bạn nhập quá lớn!";

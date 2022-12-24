@@ -15,7 +15,7 @@ public:
 	{
 
 	}
-	void chuyenKhoan(HashTableThe hashtb);
+	void chuyenKhoan(HashTableThe& hashtb);
 	void kiemTraThongTin(HashTableThe, HashTableBank);
 	void hienThiTopKhachHang(HashTableThe hashtb, HashTableBank hashtbank);
 	void doiMatKhau(HashTableThe& hashtb);

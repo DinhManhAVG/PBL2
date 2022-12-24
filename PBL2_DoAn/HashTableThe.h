@@ -125,7 +125,7 @@ public:
 		}
 		return false;
 	}
-	void timKiemNguoiNhan(wstring soTaiKhoanNguoiChuyen, wstring soTaiKhoanNguoiNhan, int soTien)
+	void timKiemNguoiNhan(wstring soTaiKhoanNguoiChuyen, wstring soTaiKhoanNguoiNhan, long long soTien)
 	{
 		int hashValueIndex = hashFunction(soTaiKhoanNguoiChuyen);
 		bool check = false;
@@ -225,7 +225,7 @@ public:
 			}
 		}
 	}
-	void timKiemSoDuTietKiem(wstring soTaiKhoan, int soTien)
+	void timKiemSoDuTietKiem(wstring soTaiKhoan, long long soTien)
 	{
 		int hashValueIndex = hashFunction(soTaiKhoan);
 		for (Node<The>* k = buckets[hashValueIndex].head; k != NULL; k = k->next)
