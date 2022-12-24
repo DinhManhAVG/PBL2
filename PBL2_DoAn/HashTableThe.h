@@ -165,7 +165,7 @@ public:
 			wcout << L"Đã chuyển thành công!" << endl;
 		}
 	}
-	void timKiemNguoiNhanTK(wstring soTaiKhoanNguoiChuyen, wstring soTaiKhoanNguoiNhan, int soTien)
+	void timKiemNguoiNhanTK(wstring soTaiKhoanNguoiChuyen, wstring soTaiKhoanNguoiNhan, long long soTien)
 	{
 		int hashValueIndex = hashFunction(soTaiKhoanNguoiChuyen);
 		bool check = false;
@@ -175,7 +175,7 @@ public:
 			{
 				if (soTien > k->data.getSoDuTietKiem())
 				{
-					gotoXY(30, 18);
+					gotoXY(30, 17);
 					wcout << L"Số dư không đủ. Yêu cầu nhập lại" << endl; return;
 				}
 				else
@@ -213,10 +213,13 @@ public:
 			if (k->data.getSoTaiKhoan() == soTaiKhoan)
 			{
 				if (soTien > k->data.getSoDu()) {
+					gotoXY(30, 17);
 					wcout << L"Số dư không đủ. Yêu cầu nhập lại" << endl; break;
 				}
 				else {
+					gotoXY(30, 17);
 					k->data.setSoDu(k->data.getSoDu() - soTien);
+					wcout << L"Bạn đã rút tiền thành công\n" << endl;
 					break;
 				}
 			}
@@ -230,10 +233,13 @@ public:
 			if (k->data.getSoTaiKhoan() == soTaiKhoan)
 			{
 				if (soTien > k->data.getSoDuTietKiem()) {
+					gotoXY(30, 16);
 					wcout << L"Số dư không đủ. Yêu cầu nhập lại" << endl; break;
 				}
 				else {
 					k->data.setSoDuTietKiem(k->data.getSoDuTietKiem() - soTien);
+					gotoXY(30, 16);
+					wcout << L"Bạn đã rút tiền thành công\n" << endl;
 					break;
 				}
 			}

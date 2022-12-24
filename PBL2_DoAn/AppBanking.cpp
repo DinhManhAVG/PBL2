@@ -923,9 +923,19 @@ void AppBanking::displayAdmin(HashTableAdmin& hashtad, HashTableThe& hashtuser, 
                                     long long soTien;
                                     wcout << L"Nhập số tiền cần nap: ";
                                     wcin >> soTien;
-                                    hashtuser.napTienUser(stk, soTien);
-                                    gotoXY(30, 9);
-                                    wcout << L"Nạp tiền cho người dùng thành công!";
+                                    wcin.clear();
+                                    wcin.ignore(LLONG_MAX, '\n');
+                                    if (soTien < LLONG_MAX)
+                                    {
+                                        hashtuser.napTienUser(stk, soTien);
+                                        gotoXY(30, 9);
+                                        wcout << L"Nạp tiền cho người dùng thành công!";
+                                    }
+                                    else
+                                    {
+                                        gotoXY(30, 9);
+                                        wcout << L"Số tiền bạn nhập quá lớn!";
+                                    }
                                     gotoXY(30, 10);
                                     system("pause");
                                     system("cls");
