@@ -46,6 +46,7 @@ void AppBanking::chuyenKhoan(HashTableThe hashtb)
     gotoXY(30, 8);
     wcout << L"Nhập số tiền cần chuyển: "; wcin >> soTien;
     hashtb.timKiemNguoiNhan(the.getSoTaiKhoan(), soTaiKhoanNguoiNhan, soTien);
+    gotoXY(30, 17);
     system("pause");
     system("cls");
     SetColor(7);
@@ -87,6 +88,7 @@ void AppBanking::doiMatKhau(HashTableThe& hashtb)
         gotoXY(30, 9);
         wcout << L"Mật khẩu sai!";
     }
+    gotoXY(30, 10);
     system("pause");
     system("cls");
 }
@@ -116,6 +118,7 @@ void AppBanking::doiMatKhauAd(HashTableAdmin& hashtad)
         gotoXY(30, 9);
         wcout << L"Mật khẩu sai!";
     }
+    gotoXY(30, 10);
     system("pause");
     system("cls");
 }
@@ -194,6 +197,10 @@ void AppBanking::paintKhung()
 }
 void AppBanking::paintKhungDangKi(HashTableBank hashtbank)
 {
+    SetColor(12);
+    gotoXY(20, 4);
+    wcout << L"Để thoát, đừng nhập gì và nhấn CTRL + Q sau đó nhấn phím enter ở mỗi mục nhập thông tin!";
+    SetColor(7);
     SetColor(8);
     gotoXY(20, 5);
     wcout << L"Nhập số tài khoản đủ 9 kí tự và 3 đầu số theo yêu cầu như danh sách bên.";
