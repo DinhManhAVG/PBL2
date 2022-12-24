@@ -1497,7 +1497,7 @@ void AppBanking::displayTaoTaiKhoan(HashTableThe& hashtb, HashTableBank& hashtba
         do
         {
             check1 = check2 = true;
-            paintKhung();
+            paintKhungDangKi(hashtbank);
             gotoXY(30, 7);
             wcout << L"Nhập số tài khoản: " << stk;
             gotoXY(30, 8);
@@ -1541,7 +1541,7 @@ void AppBanking::displayTaoTaiKhoan(HashTableThe& hashtb, HashTableBank& hashtba
         do
         {
             check1 = check2 = true;
-            paintKhung();
+            paintKhungDangKi(hashtbank);
             gotoXY(30, 7);
             wcout << L"Nhập số tài khoản: " << stk;
             gotoXY(30, 8);
@@ -1587,7 +1587,7 @@ void AppBanking::displayTaoTaiKhoan(HashTableThe& hashtb, HashTableBank& hashtba
         do
         {
             check1 = check2 = true;
-            paintKhung();
+            paintKhungDangKi(hashtbank);
             gotoXY(30, 7);
             wcout << L"Nhập số tài khoản: " << stk;
             gotoXY(30, 8);
@@ -1619,7 +1619,7 @@ void AppBanking::displayTaoTaiKhoan(HashTableThe& hashtb, HashTableBank& hashtba
         do
         {
             check1 = true;
-            paintKhung();
+            paintKhungDangKi(hashtbank);
             gotoXY(30, 7);
             wcout << L"Nhập số tài khoản: " << stk;
             gotoXY(30, 8);
@@ -1650,19 +1650,21 @@ void AppBanking::displayTaoTaiKhoan(HashTableThe& hashtb, HashTableBank& hashtba
     wstring ns;
     int day, month, year;
     bool check_svalid = true;
+    int count_ignored = 0;
     if (checkOut)
     {
         do
         {
             check1 = true;
-            paintKhung();
+            wstring sday;
+            paintKhungDangKi(hashtbank);
             do
             {
-                wstring sday;
                 check_svalid = true;
                 gotoXY(30, 12);
                 wcout << L"Nhập ngày tháng năm sinh: ";
-                wcin.ignore();
+                if (count_ignored != 0)
+                    wcin.ignore();
                 getline(wcin, sday);
                 if (sday.length() == 1 && sday[0] == CTRL_Q)
                 {
@@ -1713,6 +1715,7 @@ void AppBanking::displayTaoTaiKhoan(HashTableThe& hashtb, HashTableBank& hashtba
                     wcout << L"                       ";
                     gotoXY(0, 14);
                     wcout << L"                       ";
+                    count_ignored = 1;
                 }
             }
         } while (!check1);
@@ -1732,7 +1735,7 @@ void AppBanking::displayTaoTaiKhoan(HashTableThe& hashtb, HashTableBank& hashtba
         do
         {
             check1 = true;
-            paintKhung();
+            paintKhungDangKi(hashtbank);
             gotoXY(30, 7);
             wcout << L"Nhập số tài khoản: " << stk;
             gotoXY(30, 8);
