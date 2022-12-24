@@ -1,8 +1,7 @@
 ﻿#include"ATM.h"
-using namespace std;
 Bank bank;
-const long long soTienHienCo = bank.getSoTienCungCapATM();
-long long ATM::soTienHienCo = soTienHienCo;
+const long long soTienHienCoPre = bank.getSoTienCungCapATM();
+long long ATM::soTienHienCo = soTienHienCoPre;
 enum MOVE { LEFT = 75, RIGHT = 77, DOWN = 80, UP = 72, ENTER = 13 };
 enum LUACHON { CHUCNANG1 = 1, CHUCNANG2 = 2, CHUCNANG3 = 3, CHUCNANG4 = 4, CHUCNANG5 = 5, CHUCNANG6 = 6 };
 
@@ -64,16 +63,32 @@ void ATM::rutTien(HashTableThe& ht, wstring getSoTaiKhoan)
     int soTien;
     wcout << L"Nhập số tiền muốn rút: "; wcin >> soTien;
     if (soTien < 0) {
+        gotoXY(30, 14);
         wcout << L"Số tiền nhập không thỏa mãn. Yêu cầu nhập lại" << endl;
+        gotoXY(30, 15);
         system("pause");
         system("cls");
         hienThiGiaoDien();
         return;
     }
-    else {
-        soTienHienCo -= soTien;
+    else if (soTienHienCo < soTien) {
+        gotoXY(30, 16);
+        wcout << L"Không đủ tiền trong ATM !" << endl;
+        if (soTienHienCo < 1000000) {
+            soTienHienCo += bank.getSoTienCungCapATM();
+        }
+        system("pause");
+        system("cls");
+        hienThiGiaoDien();
+        return;
+    }
+    else if (the.getSoDu() > soTien) {
+        the.setSoDu(the.getSoDu() - soTien);
+        gotoXY(30, 16);
+        wcout << L"Bạn rút tiền thành công!";
     }
     ht.timKiemSoDu(getSoTaiKhoan, soTien);
+    gotoXY(30, 18);
     system("pause");
     system("cls");
     hienThiGiaoDien();
@@ -87,26 +102,31 @@ void ATM::rutTienTietKiem(HashTableThe& ht, wstring getSoTaiKhoan)
     int soTien;
     wcout << L"Nhập số tiền muốn rút: "; wcin >> soTien;
     if (soTien < 0) {
-        wcout << L"Số tiền nhập không thỏa mãn. Yêu cầu nhập lại" << endl;
+        wcout << L"Số tiền nhập không thỏa mãn!" << endl;
         system("pause");
         system("cls");
         hienThiGiaoDien();
         return;
     }
     else if (soTienHienCo < soTien) {
+        gotoXY(30, 16);
         wcout << L"Không đủ tiền trong ATM !" << endl;
         if (soTienHienCo < 1000000) {
             soTienHienCo += bank.getSoTienCungCapATM();
         }
+        gotoXY(30, 17);
         system("pause");
         system("cls");
         hienThiGiaoDien();
         return;
     }
-    else {
-        soTienHienCo -= soTien;
-    }
+    else if(the.getSoDuTietKiem() > soTien) {
+        the.setSoDuTietKiem(the.getSoDuTietKiem() - soTien);
+        gotoXY(30, 16);
+        wcout << L"Bạn rút tiền thành công!";
+    } 
     ht.timKiemSoDuTietKiem(getSoTaiKhoan, soTien);
+    gotoXY(30, 17);
     system("pause");
     system("cls");
     hienThiGiaoDien();
@@ -163,6 +183,7 @@ void ATM::chuyenTien(HashTableThe& ht, wstring soTaiKhoanNguoiChuyen)
     if (soTien < 0) {
         gotoXY(30, 16);
         wcout << L"Số tiền nhập không thỏa mãn. Yêu cầu nhập lại" << endl;
+        gotoXY(30, 17);
         system("pause");
         system("cls");
         hienThiGiaoDien();
@@ -188,6 +209,7 @@ void ATM::chuyenTienTietKiem(HashTableThe& ht, wstring soTaiKhoanNguoiChuyen)
     if (soTien < 0) {
         gotoXY(30, 18);
         wcout << L"Số tiền nhập không thỏa mãn. Yêu cầu nhập lại" << endl;
+        gotoXY(30, 19);
         system("pause");
         system("cls");
         hienThiGiaoDien();
@@ -266,7 +288,7 @@ void ATM::doiMaPin(HashTableThe& ht, wstring getSoTaiKhoan)
             _getch();
         }
     }
-
+    hienThiGiaoDien();
 }
 void ATM::luaChonChucNang(HashTableThe& ht, HashTableBank htbank)
 {

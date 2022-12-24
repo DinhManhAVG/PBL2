@@ -186,8 +186,8 @@ public:
 						if (j->data.getSoTaiKhoan() == soTaiKhoanNguoiNhan)
 						{
 							check = true;
-							j->data.setSoDu(j->data.getSoDuTietKiem() + soTien);
-							k->data.setSoDu(k->data.getSoDuTietKiem() - soTien);
+							j->data.setSoDuTietKiem(j->data.getSoDuTietKiem() + soTien);
+							k->data.setSoDuTietKiem(k->data.getSoDuTietKiem() - soTien);
 							break;
 						}
 					}
@@ -261,9 +261,11 @@ public:
 				wcout << L"Ngày sinh: " << k->data.getNgaySinh() << endl;
 				gotoXY(59, 35);
 				wcout << L"Địa chỉ: " << k->data.getDiaChi() << endl;
-				gotoXY(59, 37);
+				gotoXY(59, 36);
 				wcout << L"Số dư hiện tại: " << k->data.getSoDu() << endl;
-				gotoXY(59, 39);
+				gotoXY(59, 37);
+				wcout << L"Số dư tiết kiệm: " << k->data.getSoDuTietKiem() << endl;
+				gotoXY(59, 38);
 				wcout << L"Tên ngân hàng: " << bank.getTenBank() << endl;
 				break;
 			}
