@@ -56,6 +56,11 @@ public:
 			}
 			i++;
 		}
+		gotoXY(30, 8);
+		wcout << L"Ngân hàng không tồn tại!" << endl;
+		gotoXY(30, 9);
+		system("pause");
+		system("cls");
 	}
 	Node<Bank>* get(wstring key)
 	{

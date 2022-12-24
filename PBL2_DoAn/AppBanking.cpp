@@ -72,11 +72,11 @@ void AppBanking::doiMatKhau(HashTableThe& hashtb)
     gotoXY(30, 7);
     wcout << L"Nhập mật khẩu hiện tại: ";
     wcin >> matKhauHienTai;
-    gotoXY(30, 8);
-    wcout << L"Nhập mật khẩu mới: ";
-    wcin >> matKhauMoi;
     if (matKhauHienTai == the.getMatKhau())
     {
+        gotoXY(30, 8);
+        wcout << L"Nhập mật khẩu mới: ";
+        wcin >> matKhauMoi;
         if (matKhauHienTai != matKhauMoi)
         {
             the.setMatKhau(matKhauMoi);
@@ -100,11 +100,11 @@ void AppBanking::doiMatKhauAd(HashTableAdmin& hashtad)
     gotoXY(30, 7);
     wcout << L"Nhập mật khẩu hiện tại: ";
     wcin >> matKhauHienTai;
-    gotoXY(30, 8);
-    wcout << L"Nhập mật khẩu mới: ";
-    wcin >> matKhauMoi;
     if (matKhauHienTai == ad.getMatKhauAdmin())
     {
+        gotoXY(30, 8);
+        wcout << L"Nhập mật khẩu mới: ";
+        wcin >> matKhauMoi;
         if (matKhauHienTai != matKhauMoi)
         {
             ad.setMatKhauAdmin(matKhauMoi);
@@ -825,43 +825,51 @@ void AppBanking::displayAdmin(HashTableAdmin& hashtad, HashTableThe& hashtuser, 
                             if ((x >= 25 && x <= 51) && (y >= 5 && y <= 7))
                             {
                                 system("cls");
-                                paintKhung();
                                 wstring stk;
                                 bool check1 = true;
-                                do
+                                paintKhung();
+                                gotoXY(30, 7);
+                                wcout << L"Nhập số tài khoản người dùng cần xóa:";
+                                while ((ch = _getch()) != ENTER)
                                 {
-                                    gotoXY(30, 7);
-                                    wcout << L"Nhập số tài khoản người dùng cần xóa:";
-                                    while ((ch = _getch()) != ENTER)
+                                    if (ch == BACKSPACE && stk.size() > 0)
                                     {
-                                        if (ch == BACKSPACE && stk.size() > 0)
+                                        stk[stk.size() - 1] = '\0';
+                                        stk.resize(stk.size() - 1);
+                                        gotoXY(whereX() - 1, whereY());
+                                        wcout << L" ";
+                                        gotoXY(whereX() - 1, whereY());
+                                    }
+                                    else if (ch != BACKSPACE)
+                                    {
+                                        if (stk.length() < 9)
                                         {
-                                            stk[stk.size() - 1] = '\0';
-                                            stk.resize(stk.size() - 1);
-                                            gotoXY(whereX() - 1, whereY());
-                                            wcout << L" ";
-                                            gotoXY(whereX() - 1, whereY());
-                                        }
-                                        else if (ch != BACKSPACE)
-                                        {
-                                            if (stk.length() < 9)
-                                            {
-                                                stk += ch;
-                                                wcout << ch;
-                                            }
+                                            stk += ch;
+                                            wcout << ch;
                                         }
                                     }
-                                    if (stk.length() == 0)
-                                    {
-                                        check1 = false;
-                                        gotoXY(30, 8);
-                                        wcout << L"Số tài khoản không hợp lệ!";
-                                        gotoXY(30, 9);
-                                        system("pause");
-                                        system("cls");
-                                    }
-                                } while (!check1);
-                                hashtuser.remove(stk);
+                                }
+                                if (stk.length() == 0)
+                                {
+                                    check1 = false;
+                                    gotoXY(30, 8);
+                                    wcout << L"Số tài khoản không hợp lệ!";
+                                    gotoXY(30, 9);
+                                    system("pause");
+                                    system("cls");
+                                }
+                                else if (!hashtuser.checkSTK(stk))
+                                {
+                                    check1 = false;
+                                    stk = L"";
+                                    gotoXY(30, 8);
+                                    wcout << L"Số tài khoản không tồn tại!";
+                                    gotoXY(30, 9);
+                                    system("pause");
+                                    system("cls");
+                                }
+                                if (check1)
+                                    hashtuser.remove(stk);
                             }
                             else if ((x >= 25 && x <= 51) && (y >= 10 && y <= 12))
                             {
@@ -869,49 +877,59 @@ void AppBanking::displayAdmin(HashTableAdmin& hashtad, HashTableThe& hashtuser, 
                                 paintKhung();
                                 wstring stk;
                                 bool check1 = true;
-                                do
+                                gotoXY(30, 7);
+                                wcout << L"Nhập số tài khoản người dùng cần thêm tiền: ";
+                                while ((ch = _getch()) != ENTER)
                                 {
-                                    gotoXY(30, 7);
-                                    wcout << L"Nhập số tài khoản người dùng cần thêm tiền: ";
-                                    while ((ch = _getch()) != ENTER)
+                                    if (ch == BACKSPACE && stk.size() > 0)
                                     {
-                                        if (ch == BACKSPACE && stk.size() > 0)
+                                        stk[stk.size() - 1] = '\0';
+                                        stk.resize(stk.size() - 1);
+                                        gotoXY(whereX() - 1, whereY());
+                                        wcout << L" ";
+                                        gotoXY(whereX() - 1, whereY());
+                                    }
+                                    else if (ch != BACKSPACE)
+                                    {
+                                        if (stk.length() < 9)
                                         {
-                                            stk[stk.size() - 1] = '\0';
-                                            stk.resize(stk.size() - 1);
-                                            gotoXY(whereX() - 1, whereY());
-                                            wcout << L" ";
-                                            gotoXY(whereX() - 1, whereY());
-                                        }
-                                        else if (ch != BACKSPACE)
-                                        {
-                                            if (stk.length() < 9)
-                                            {
-                                                stk += ch;
-                                                wcout << ch;
-                                            }
+                                            stk += ch;
+                                            wcout << ch;
                                         }
                                     }
-                                    if (stk.length() == 0)
-                                    {
-                                        check1 = false;
-                                        gotoXY(30, 8);
-                                        wcout << L"Số tài khoản không hợp lệ!";
-                                        gotoXY(30, 9);
-                                        system("pause");
-                                        system("cls");
-                                    }
-                                } while (!check1);
-                                gotoXY(30, 8);
-                                long long soTien;
-                                wcout << L"Nhập số tiền cần nap: ";
-                                wcin >> soTien;
-                                hashtuser.napTienUser(stk, soTien);
-                                gotoXY(30, 9);
-                                wcout << L"Nạp tiền cho người dùng thành công!";
-                                gotoXY(30, 10);
-                                system("pause");
-                                system("cls");
+                                }
+                                if (stk.length() == 0)
+                                {
+                                    check1 = false;
+                                    gotoXY(30, 8);
+                                    wcout << L"Số tài khoản không hợp lệ!";
+                                    gotoXY(30, 9);
+                                    system("pause");
+                                    system("cls");
+                                }
+                                else if (!hashtuser.checkSTK(stk))
+                                {
+                                    check1 = false;
+                                    stk = L"";
+                                    gotoXY(30, 8);
+                                    wcout << L"Số tài khoản không tồn tại!";
+                                    gotoXY(30, 9);
+                                    system("pause");
+                                    system("cls");
+                                }
+                                if (check1)
+                                {
+                                    gotoXY(30, 8);
+                                    long long soTien;
+                                    wcout << L"Nhập số tiền cần nap: ";
+                                    wcin >> soTien;
+                                    hashtuser.napTienUser(stk, soTien);
+                                    gotoXY(30, 9);
+                                    wcout << L"Nạp tiền cho người dùng thành công!";
+                                    gotoXY(30, 10);
+                                    system("pause");
+                                    system("cls");
+                                }
                             }
                             else if ((x >= 25 && x <= 51) && (y >= 15 && y <= 17))
                             {
