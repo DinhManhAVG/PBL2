@@ -246,3 +246,71 @@ static bool kiemTraNgayHopLe(int day, int month, int year)
 
     return true; // Trả về trạng thái cuối cùng...
 }
+static void loading()
+{
+    hConsoleColor = GetStdHandle(STD_OUTPUT_HANDLE);
+    gotoXY(35, 10);
+    SetConsoleTextAttribute(hConsoleColor, 192);
+    wcout << L"╔══════════════════════════════════════════════════╗";
+    gotoXY(35, 11);
+    wcout << L"║";
+    SetConsoleTextAttribute(hConsoleColor, 206);
+    wcout << L"                                                  ";
+    SetConsoleTextAttribute(hConsoleColor, 192);
+    wcout << L"║";
+    gotoXY(35, 12);
+    wcout << L"╚══════════════════════════════════════════════════╝";
+    gotoXY(35, 15);
+    SetConsoleTextAttribute(hConsoleColor, 7);
+    int count = 35;
+    for (int i = 1; i <= 10; i++)
+    {
+        if (i == 1)
+        {
+            gotoXY(count, 10);
+            SetConsoleTextAttribute(hConsoleColor, 224);
+            wcout << L"╔═════";
+            gotoXY(count, 11);
+            wcout << L"║";
+            SetConsoleTextAttribute(hConsoleColor, 228);
+            wcout << L"     ";
+            SetConsoleTextAttribute(hConsoleColor, 224);
+            gotoXY(count, 12);
+            wcout << L"╚═════";
+            SetConsoleTextAttribute(hConsoleColor, 7);
+            count += 6;
+        }
+        else if (i == 10)
+        {
+            gotoXY(count, 10);
+            SetConsoleTextAttribute(hConsoleColor, 224);
+            wcout << L"═════╗";
+            gotoXY(count, 11);
+            SetConsoleTextAttribute(hConsoleColor, 228);
+            wcout << L"     ";
+            SetConsoleTextAttribute(hConsoleColor, 224);
+            wcout << L"║";
+            gotoXY(count, 12);
+            wcout << L"═════╝";
+            SetConsoleTextAttribute(hConsoleColor, 7);
+        }
+        else
+        {
+            gotoXY(count, 10);
+            SetConsoleTextAttribute(hConsoleColor, 224);
+            wcout << L"═════";
+            gotoXY(count, 11);
+            SetConsoleTextAttribute(hConsoleColor, 228);
+            wcout << L"     ";
+            SetConsoleTextAttribute(hConsoleColor, 224);
+            gotoXY(count, 12);
+            wcout << L"═════";
+            SetConsoleTextAttribute(hConsoleColor, 7);
+            count += 5;
+        }
+        gotoXY(55, 13);
+        wcout << L"Loading... " << i * 10 << L"%";
+        Sleep(150);
+    }
+    system("cls");
+}

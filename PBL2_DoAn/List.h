@@ -1,7 +1,5 @@
 #pragma once
 #include"My_lib.h"
-using namespace std;
-
 template <typename T>
 class Node
 {

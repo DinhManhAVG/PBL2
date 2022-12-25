@@ -41,6 +41,7 @@ int main()
         system("cls");
         exit(0);
     }
+    loading();
     ShowCur(false);
     // Vòng lặp để quét qua các event  
     while (true)
