@@ -38,6 +38,15 @@ void AppBanking::chuyenKhoan(HashTableThe& hashtb)
         system("cls");
         return;
     }
+    else if (the.getSoTaiKhoan() == soTaiKhoanNguoiNhan)
+    {
+        gotoXY(30, 8);
+        wcout << L"Số tài khoản trùng với chính mình!";
+        gotoXY(30, 9);
+        system("pause");
+        system("cls");
+        return;
+    }
     else if (!hashtb.checkSTK(soTaiKhoanNguoiNhan))
     {
         gotoXY(30, 8);
@@ -49,14 +58,56 @@ void AppBanking::chuyenKhoan(HashTableThe& hashtb)
     }
     long long soTien;
     gotoXY(30, 8);
-    wcout << L"Nhập số tiền cần chuyển: "; wcin >> soTien;
-    wcin.clear();
-    wcin.ignore(LLONG_MAX, '\n');
+    wstring str;
+    wcout << L"Nhập số tiền cần chuyển: ";
+    while ((ch = _getch()) != ENTER)
+    {
+        if (ch == BACKSPACE && str.size() > 0)
+        {
+            str[str.size() - 1] = '\0';
+            str.resize(str.size() - 1);
+            gotoXY(whereX() - 1, whereY());
+            wcout << L" ";
+            gotoXY(whereX() - 1, whereY());
+        }
+        else if (ch != BACKSPACE)
+        {
+            if (str.length() <= 9)
+            {
+                str += ch;
+                wcout << ch;
+            }
+        }
+    }
+    if (str.length() == 0)
+    {
+        gotoXY(30, 8);
+        wcout << L"Bạn chưa nhập gì!" << endl;
+        gotoXY(30, 9);
+        system("pause");
+        system("cls");
+        return;
+    }
+    bool checkstr = true;
+    for (int i = 0; i < str.length(); ++i) {
+        if (!isdigit(str[i])) {
+            soTien = -1;
+            checkstr = false;
+        }
+    }
+    if (checkstr)
+    {
+        soTien = stoll(str);
+    }
+    else
+    {
+        soTien = -1;
+    }
     if (soTien < 0) 
     {
-        gotoXY(30, 16);
+        gotoXY(30, 8);
         wcout << L"Số tiền nhập không thỏa mãn. Yêu cầu nhập lại" << endl;
-        gotoXY(30, 17);
+        gotoXY(30, 9);
         system("pause");
         system("cls");
         return;
@@ -1061,10 +1112,51 @@ void AppBanking::displayAdmin(HashTableAdmin& hashtad, HashTableThe& hashtuser, 
                                 {
                                     gotoXY(30, 8);
                                     long long soTien;
+                                    wstring str;
                                     wcout << L"Nhập số tiền cần nap: ";
-                                    wcin >> soTien;
-                                    wcin.clear();
-                                    wcin.ignore(LLONG_MAX, '\n');
+                                    while ((ch = _getch()) != ENTER)
+                                    {
+                                        if (ch == BACKSPACE && str.size() > 0)
+                                        {
+                                            str[str.size() - 1] = '\0';
+                                            str.resize(str.size() - 1);
+                                            gotoXY(whereX() - 1, whereY());
+                                            wcout << L" ";
+                                            gotoXY(whereX() - 1, whereY());
+                                        }
+                                        else if (ch != BACKSPACE)
+                                        {
+                                            if (str.length() <= 9)
+                                            {
+                                                str += ch;
+                                                wcout << ch;
+                                            }
+                                        }
+                                    }
+                                    if (str.length() == 0)
+                                    {
+                                        gotoXY(30, 8);
+                                        wcout << L"Bạn chưa nhập gì!" << endl;
+                                        gotoXY(30, 9);
+                                        system("pause");
+                                        system("cls");
+                                        return;
+                                    }
+                                    bool checkstr = true;
+                                    for (int i = 0; i < str.length(); ++i) {
+                                        if (!isdigit(str[i])) {
+                                            soTien = -1;
+                                            checkstr = false;
+                                        }
+                                    }
+                                    if (checkstr)
+                                    {
+                                        soTien = stoll(str);
+                                    }
+                                    else
+                                    {
+                                        soTien = -1;
+                                    }
                                     if (soTien < 0)
                                     {
                                         gotoXY(30, 9);
@@ -1870,7 +1962,12 @@ void AppBanking::displayTaoTaiKhoan(HashTableThe& hashtb, HashTableBank& hashtba
             } while (!check_svalid);
             if (checkOut)
             {
-                wcin >> month >> year;
+                gotoXY(30, 13);
+                wcout << L"Nhập tháng:";
+                wcin >> month;
+                gotoXY(30, 14);
+                wcout << L"Nhập năm:";
+                wcin >> year;
                 if (!kiemTraNgayHopLe(day, month, year))
                 {
                     check1 = false;
@@ -1897,9 +1994,7 @@ void AppBanking::displayTaoTaiKhoan(HashTableThe& hashtb, HashTableBank& hashtba
     {
         wcin.ignore(256, '\n');
         ns = ns + to_wstring(day) + L"/" + to_wstring(month) + L"/" + to_wstring(year);
-        gotoXY(0, 13);
-        wcout << L"                       ";
-        gotoXY(0, 14);
+        gotoXY(30, 14);
         wcout << L"                       ";
     }
     wstring dc;

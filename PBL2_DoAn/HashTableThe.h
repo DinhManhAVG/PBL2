@@ -205,7 +205,7 @@ public:
 			wcout << L"Đã chuyển thành công!" << endl;
 		}
 	}
-	void timKiemSoDu(wstring soTaiKhoan, int soTien)
+	void timKiemSoDu(wstring soTaiKhoan, long long soTien)
 	{
 		int hashValueIndex = hashFunction(soTaiKhoan);
 		for (Node<The>* k = buckets[hashValueIndex].head; k != NULL; k = k->next)
@@ -364,6 +364,7 @@ public:
 		gotoXY(59, 26);
 		int soNam;
 		wcout << L"Nhập số năm muốn gửi vào ngân hàng: "; wcin >> soNam;
+		wcin.ignore();
 		int hashValueIndex = hashFunction(soTaiKhoan);
 		for (Node<The>* k = buckets[hashValueIndex].head; k != NULL; k = k->next)
 		{

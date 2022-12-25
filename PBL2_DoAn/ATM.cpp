@@ -57,18 +57,64 @@ void ATM::hienThiGiaoDien()
 }
 void ATM::rutTien(HashTableThe& ht, wstring getSoTaiKhoan)
 {
+    wchar_t ch;
+    const wchar_t ENTER = 13;
+    const wchar_t BACKSPACE = 8;
     hienThiGiaoDien();
     SetColor(11);
     gotoXY(30, 14);
-    long long soTien;
+    wstring str;
     wcout << L"Nhập số tiền muốn rút: ";
-    wcin >> soTien;
-    wcin.clear();
-    wcin.ignore(LLONG_MAX, '\n');
-    if (soTien < 0) {
-        gotoXY(30, 14);
-        wcout << L"Số tiền nhập không thỏa mãn. Yêu cầu nhập lại" << endl;
-        gotoXY(30, 15);
+    while ((ch = _getch()) != ENTER)
+    {
+        if (ch == BACKSPACE && str.size() > 0)
+        {
+            str[str.size() - 1] = '\0';
+            str.resize(str.size() - 1);
+            gotoXY(whereX() - 1, whereY());
+            wcout << L" ";
+            gotoXY(whereX() - 1, whereY());
+        }
+        else if (ch != BACKSPACE)
+        {
+            if (str.length() <= 9)
+            {
+                str += ch;
+                wcout << ch;
+            }
+        }
+    }
+    if (str.length() == 0)
+    {
+        gotoXY(30, 16);
+        wcout << L"Bạn chưa nhập gì!" << endl;
+        gotoXY(30, 17);
+        system("pause");
+        system("cls");
+        hienThiGiaoDien();
+        return;
+    }
+    long long soTien;
+    bool checkstr = true;
+    for (int i = 0; i < str.length(); ++i) {
+        if (!isdigit(str[i])) {
+            soTien = -1;
+            checkstr = false;
+        }
+    }
+    if (checkstr)
+    {
+        soTien = stoll(str);
+    }
+    else
+    {
+        soTien = -1;
+    }
+    if (soTien < 0) 
+    {
+        gotoXY(30, 16);
+        wcout << L"Số tiền nhập không thỏa mãn!" << endl;
+        gotoXY(30, 17);
         system("pause");
         system("cls");
         hienThiGiaoDien();
@@ -80,15 +126,11 @@ void ATM::rutTien(HashTableThe& ht, wstring getSoTaiKhoan)
         if (soTienHienCo < 1000000) {
             soTienHienCo += bank.getSoTienCungCapATM();
         }
+        gotoXY(30, 17);
         system("pause");
         system("cls");
         hienThiGiaoDien();
         return;
-    }
-    else if (the.getSoDu() > soTien) {
-        the.setSoDu(the.getSoDu() - soTien);
-        gotoXY(30, 16);
-        wcout << L"Bạn rút tiền thành công!";
     }
     ht.timKiemSoDu(getSoTaiKhoan, soTien);
     gotoXY(30, 18);
@@ -99,15 +141,65 @@ void ATM::rutTien(HashTableThe& ht, wstring getSoTaiKhoan)
 }
 void ATM::rutTienTietKiem(HashTableThe& ht, wstring getSoTaiKhoan)
 {
+    wchar_t ch;
+    const wchar_t ENTER = 13;
+    const wchar_t BACKSPACE = 8;
+    const wchar_t CTRL_E = 5;
     hienThiGiaoDien();
     SetColor(11);
     gotoXY(30, 14);
+    wstring str;
+    wcout << L"Nhập số tiền muốn rút: ";
+    while ((ch = _getch()) != ENTER)
+    {
+        if (ch == BACKSPACE && str.size() > 0)
+        {
+            str[str.size() - 1] = '\0';
+            str.resize(str.size() - 1);
+            gotoXY(whereX() - 1, whereY());
+            wcout << L" ";
+            gotoXY(whereX() - 1, whereY());
+        }
+        else if (ch != BACKSPACE)
+        {
+            if (str.length() <= 9)
+            {
+                str += ch;
+                wcout << ch;
+            }
+        }
+    }
+    if (str.length() == 0)
+    {
+        gotoXY(30, 16);
+        wcout << L"Bạn chưa nhập gì!" << endl;
+        gotoXY(30, 17);
+        system("pause");
+        system("cls");
+        hienThiGiaoDien();
+        return;
+    }
     long long soTien;
-    wcout << L"Nhập số tiền muốn rút: "; wcin >> soTien; 
-    wcin.clear();
-    wcin.ignore(LLONG_MAX, '\n');
-    if (soTien < 0) {
+    bool checkstr = true;
+    for (int i = 0; i < str.length(); ++i) {
+        if (!isdigit(str[i])) {
+            soTien = -1;
+            checkstr = false;
+        }
+    }
+    if (checkstr)
+    {
+        soTien = stoll(str);
+    }
+    else
+    {
+        soTien = -1;
+    }
+    if (soTien < 0) 
+    {
+        gotoXY(30, 16);
         wcout << L"Số tiền nhập không thỏa mãn!" << endl;
+        gotoXY(30, 17);
         system("pause");
         system("cls");
         hienThiGiaoDien();
@@ -175,6 +267,16 @@ void ATM::chuyenTien(HashTableThe& ht, wstring soTaiKhoanNguoiChuyen)
         hienThiGiaoDien();
         return;
     }
+    else if (soTaiKhoanNguoiChuyen == soTaiKhoanNguoiNhan)
+    {
+        gotoXY(30, 15);
+        wcout << L"Số tài khoản trùng với chính mình!";
+        gotoXY(30, 16);
+        system("pause");
+        system("cls");
+        hienThiGiaoDien();
+        return;
+    }
     else if (!ht.checkSTK(soTaiKhoanNguoiNhan))
     {
         gotoXY(30, 15);
@@ -185,11 +287,54 @@ void ATM::chuyenTien(HashTableThe& ht, wstring soTaiKhoanNguoiChuyen)
         hienThiGiaoDien();
         return;
     }
-    long long soTien;
     gotoXY(30, 15);
-    wcout << L"Nhập số tiền cần chuyển: "; wcin >> soTien;
-    wcin.clear();
-    wcin.ignore(LLONG_MAX, '\n');
+    wstring str;
+    wcout << L"Nhập số tiền cần chuyển: ";
+    while ((ch = _getch()) != ENTER)
+    {
+        if (ch == BACKSPACE && str.size() > 0)
+        {
+            str[str.size() - 1] = '\0';
+            str.resize(str.size() - 1);
+            gotoXY(whereX() - 1, whereY());
+            wcout << L" ";
+            gotoXY(whereX() - 1, whereY());
+        }
+        else if (ch != BACKSPACE)
+        {
+            if (str.length() <= 9)
+            {
+                str += ch;
+                wcout << ch;
+            }
+        }
+    }
+    if (str.length() == 0)
+    {
+        gotoXY(30, 16);
+        wcout << L"Bạn chưa nhập gì!" << endl;
+        gotoXY(30, 17);
+        system("pause");
+        system("cls");
+        hienThiGiaoDien();
+        return;
+    }
+    long long soTien;
+    bool checkstr = true;
+    for (int i = 0; i < str.length(); ++i) {
+        if (!isdigit(str[i])) {
+            soTien = -1;
+            checkstr = false;
+        }
+    }
+    if (checkstr)
+    {
+        soTien = stoll(str);
+    }
+    else
+    {
+        soTien = -1;
+    }
     if (soTien < 0) {
         gotoXY(30, 16);
         wcout << L"Số tiền nhập không thỏa mãn. Yêu cầu nhập lại" << endl;
@@ -246,6 +391,16 @@ void ATM::chuyenTienTietKiem(HashTableThe& ht, wstring soTaiKhoanNguoiChuyen)
         hienThiGiaoDien();
         return;
     }
+    else if (soTaiKhoanNguoiChuyen == soTaiKhoanNguoiNhan)
+    {
+        gotoXY(30, 15);
+        wcout << L"Số tài khoản trùng với chính mình!";
+        gotoXY(30, 16);
+        system("pause");
+        system("cls");
+        hienThiGiaoDien();
+        return;
+    }
     else if (!ht.checkSTK(soTaiKhoanNguoiNhan))
     {
         gotoXY(30, 15);
@@ -256,12 +411,54 @@ void ATM::chuyenTienTietKiem(HashTableThe& ht, wstring soTaiKhoanNguoiChuyen)
         hienThiGiaoDien();
         return;
     }
-    long long soTien;
     gotoXY(30, 16);
-    wcout << L"Nhập số tiền cần chuyển: "; 
-    wcin >> soTien;
-    wcin.clear();
-    wcin.ignore(LLONG_MAX, '\n'); 
+    wstring str;
+    wcout << L"Nhập số tiền cần chuyển: ";
+    while ((ch = _getch()) != ENTER)
+    {
+        if (ch == BACKSPACE && str.size() > 0)
+        {
+            str[str.size() - 1] = '\0';
+            str.resize(str.size() - 1);
+            gotoXY(whereX() - 1, whereY());
+            wcout << L" ";
+            gotoXY(whereX() - 1, whereY());
+        }
+        else if (ch != BACKSPACE)
+        {
+            if (str.length() <= 9)
+            {
+                str += ch;
+                wcout << ch;
+            }
+        }
+    }
+    if (str.length() == 0)
+    {
+        gotoXY(30, 16);
+        wcout << L"Bạn chưa nhập gì!" << endl;
+        gotoXY(30, 17);
+        system("pause");
+        system("cls");
+        hienThiGiaoDien();
+        return;
+    }
+    long long soTien;
+    bool checkstr = true;
+    for (int i = 0; i < str.length(); ++i) {
+        if (!isdigit(str[i])) {
+            soTien = -1;
+            checkstr = false;
+        }
+    }
+    if (checkstr)
+    {
+        soTien = stoll(str);
+    }
+    else
+    {
+        soTien = -1;
+    }
     if (soTien < 0) {
         gotoXY(30, 18);
         wcout << L"Số tiền nhập không thỏa mãn. Yêu cầu nhập lại" << endl;

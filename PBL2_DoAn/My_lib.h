@@ -6,6 +6,7 @@
 #include <iomanip>
 #include <conio.h>
 #include <locale>
+#include <cctype>
 #include <codecvt>
 #include <cstdio>  // for _fileno
 #include <io.h>    // for _setmode
