@@ -43,6 +43,8 @@ public:
 					buckets[hashValueIndex].deleteNode(i);
 					gotoXY(30, 9);
 					system("pause");
+					system("cls");
+					return;
 				}
 				else
 				{
@@ -50,6 +52,8 @@ public:
 					wcout << L"Ngân hàng đang tồn tại người dùng! Không thể xóa được!" << endl;
 					gotoXY(30, 9);
 					system("pause");
+					system("cls");
+					return;
 				}
 				system("cls");
 				break;

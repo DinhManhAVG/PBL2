@@ -635,22 +635,22 @@ void AppBanking::displayApp(HashTableThe& hashtb, HashTableBank hashtbank, HashT
 
         hStdin = GetStdHandle(STD_INPUT_HANDLE);
         if (hStdin == INVALID_HANDLE_VALUE)
-            WriteError("GetStdHandle");
+            WriteError(const_cast <LPSTR>("GetStdHandle"));
 
         // Mở cửa sổ ở chế độ mở
         fdwMode = ENABLE_EXTENDED_FLAGS;
         if (!SetConsoleMode(hStdin, fdwMode)) {
-            WriteError("SetConsoleMode");
+            WriteError(const_cast <LPSTR>("SetConsoleMode"));
         }
 
         // Mở cửa sổ ở chế độ chấp nhận input
 
         fdwMode = ENABLE_WINDOW_INPUT | ENABLE_MOUSE_INPUT;
         if (!SetConsoleMode(hStdin, fdwMode)) {
-            WriteError("SetConsoleMode");
+            WriteError(const_cast <LPSTR>("SetConsoleMode"));
         }
         if (!ReadConsoleInput(hStdin, irInBuf, 128, &cNumRead)) {
-            WriteError("ReadConsoleInput");
+            WriteError(const_cast <LPSTR>("ReadConsoleInput"));
         }
         // xử lý từng event một
         for (i = 0; i < cNumRead; i++)
@@ -961,22 +961,22 @@ void AppBanking::displayAdmin(HashTableAdmin& hashtad, HashTableThe& hashtuser, 
 
         hStdin = GetStdHandle(STD_INPUT_HANDLE);
         if (hStdin == INVALID_HANDLE_VALUE)
-            WriteError("GetStdHandle");
+            WriteError(const_cast <LPSTR>("GetStdHandle"));
 
         // Mở cửa sổ ở chế độ mở
         fdwMode = ENABLE_EXTENDED_FLAGS;
         if (!SetConsoleMode(hStdin, fdwMode)) {
-            WriteError("SetConsoleMode");
+            WriteError(const_cast <LPSTR>("SetConsoleMode"));
         }
 
         // Mở cửa sổ ở chế độ chấp nhận input
 
         fdwMode = ENABLE_WINDOW_INPUT | ENABLE_MOUSE_INPUT;
         if (!SetConsoleMode(hStdin, fdwMode)) {
-            WriteError("SetConsoleMode");
+            WriteError(const_cast <LPSTR>("SetConsoleMode"));
         }
         if (!ReadConsoleInput(hStdin, irInBuf, 128, &cNumRead)) {
-            WriteError("ReadConsoleInput");
+            WriteError(const_cast <LPSTR>("ReadConsoleInput"));
         }
         // xử lý từng event một
         for (i = 0; i < cNumRead; i++)
@@ -1389,22 +1389,22 @@ void AppBanking::displayTongQuat(HashTableThe& hashtb, int& access, HashTableBan
 
         hStdin = GetStdHandle(STD_INPUT_HANDLE);
         if (hStdin == INVALID_HANDLE_VALUE)
-            WriteError("GetStdHandle");
+            WriteError(const_cast <LPSTR>("GetStdHandle"));
 
         // Mở cửa sổ ở chế độ mở
         fdwMode = ENABLE_EXTENDED_FLAGS;
         if (!SetConsoleMode(hStdin, fdwMode)) {
-            WriteError("SetConsoleMode");
+            WriteError(const_cast <LPSTR>("SetConsoleMode"));
         }
 
         // Mở cửa sổ ở chế độ chấp nhận input
 
         fdwMode = ENABLE_WINDOW_INPUT | ENABLE_MOUSE_INPUT;
         if (!SetConsoleMode(hStdin, fdwMode)) {
-            WriteError("SetConsoleMode");
+            WriteError(const_cast <LPSTR>("SetConsoleMode"));
         }
         if (!ReadConsoleInput(hStdin, irInBuf, 128, &cNumRead)) {
-            WriteError("ReadConsoleInput");
+            WriteError(const_cast <LPSTR>("ReadConsoleInput"));
         }
         // xử lý từng event một
         for (i = 0; i < cNumRead; i++)

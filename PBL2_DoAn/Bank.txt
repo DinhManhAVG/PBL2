@@ -1,3 +1,3 @@
 ﻿113 | ad1 | Agribank | 0.5 | 4 | Thừa Thiên Huế |||
 114 | ad2 | BIDVBank | 0.8 | 2 | Đà Nẵng |||
-115 | ad1 | Ngân hàng Thụy Sĩ | 0.6 | 1 | Thụy Sĩ |||
+115 | ad1 | Ngân hàng Thụy Sĩ | 0.6 | 2 | Thụy Sĩ |||
